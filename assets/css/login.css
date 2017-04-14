@@ -1,0 +1,115 @@
+body {
+    display: flex;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+}
+
+.container-login {
+    width: 400px;
+    min-width: 400px;
+    flex-direction: row;
+    background-color: #FFCE62;
+    height: 100vh;
+    min-height: 650px;
+}
+
+.title-panel {
+    width: 100%;
+    height: 30%;
+    display: flex;
+}
+
+.link-domain {
+    height: 50px;
+    width: 50%;
+    display: flex;
+    align-self: flex-end;
+    margin-left: 50px;
+}
+
+.title-name {
+    padding-left: 50px;
+    height: 50px;
+    align-self: flex-end;
+    width: 50%;
+}
+
+.login-panel {
+    height: 40%;
+    width: 300px;
+    margin-top: 25px;
+    margin-left: 50px;
+}
+
+.logo-panel {
+    height: 20%;
+    flex-direction: column-reverse;
+}
+
+.img-framsenteret {
+    margin: 15px 0;
+    width: 100%;
+    text-align: center;
+}
+
+.img-logo {
+    margin: 15px 0;
+    width: 100%;
+    text-align: center;
+}
+
+image.logo {
+    bottom: 0px;
+}
+
+input.control {
+    padding-left: 15px;
+    margin-top: 15px;
+    height: 44px;
+    width: 300px;
+}
+
+.access-link {
+
+}
+
+.group-input {
+    margin: 5px 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.right {
+    text-align: right;
+}
+
+.btn-login {
+    background-color: #59B2E0;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    width: 86px;
+    height: 44px;
+    font-weight: normal;
+    padding: 14px 0;
+    text-transform: uppercase;
+    border-color: #59B2E6;
+}
+.btn-login:hover,
+.btn-login:focus {
+    color: #fff;
+    background-color: #53A3CD;
+    border-color: #53A3CD;
+}
+
+.container-image {
+    left: 30%;
+    height: 100vh;
+    flex: 1;
+    background: url(/assets/img/background-photo.png) no-repeat center;
+    background-size: cover;
+    min-width: 650px;
+}

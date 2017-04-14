@@ -1,0 +1,54 @@
+doctype
+html
+    head
+        title #{title}
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css", integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp", crossorigin="anonymous")
+        link(rel="stylesheet", href="/assets/css/index.css")
+        link(rel="stylesheet", href="/assets/css/main.css")
+    body
+        .nav-bar
+            .nav-bar-left.full-height
+                a.navbar-brand(href='/') Maler jakt administration
+                a.log(href='/logout')
+                    .glyphicon.glyphicon-log-out
+                    span.logout Logout
+            .nav-bar-right.full-height
+                a.del(href='#', style="padding-right: 20px;")
+                    .glyphicon.glyphicon-remove-circle
+                    span.logout Purge deleted images
+                a.bar.btn.default Export geolocations
+                a.bar.btn.default#archive-images Export images
+                a.bar.btn.default(href="/fullscreen") Fullscreen
+
+        table.table.table-striped
+            thead
+                tr
+                    th Picture/Device info
+                    th Location/accuracy
+                    th Image URL
+                    th Comments
+                    th Identifications
+            tbody
+                each image in images
+                    tr(id="#{image._id}")
+                        td
+                            image(src="/image/#{image.name}", style="width: 40px; height: 40px;")
+                        td #{image.coordinates}
+                        td
+                            a(href="/image/#{image.name}", download) download
+                        td #{image.comments}
+                        td
+                            each identification in identifications
+                                if image.identification == identification.name
+                                    button.identification(id="#{image._id}#{identification.name}", name="#{identification.name}" data-name="#{image.name}" style="background-color: #{identification.color};") #{identification.name}
+                                else
+                                    button.identification(id="#{image._id}#{identification.name}", name="#{identification.name}" data-name="#{image.name}") #{identification.name}
+                            if image.isDelete
+                                button.delete-img.btn-delete(name="delete" data-id="#{image._id}" data-name="#{image.name}") delete
+                            else
+                                button.delete-img(name="delete" data-id="#{image._id}" data-name="#{image.name}") delete
+
+    script(src="https://code.jquery.com/jquery-3.2.1.js", integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=", crossorigin="anonymous")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
+    script(type='text/javascript', src='/assets/js/main.js')
