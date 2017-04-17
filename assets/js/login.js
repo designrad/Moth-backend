@@ -17,7 +17,6 @@ $(function() {
 
 });
 
-
 $( "#register-form" ).submit(function( event ) {
 
   // Stop form from submitting normally

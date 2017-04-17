@@ -1,5 +1,14 @@
-.logout {
+.logout, span.del {
     padding-left: 10px;
+}
+
+span.del {
+    color: #E74C3C;
+    cursor: pointer;
+}
+
+.glyphicon-remove-circle {
+    color: #E74C3C;
 }
 
 .nav-bar {

@@ -1,4 +1,5 @@
 module.exports = {
   upload: require('./upload'),
-  delete: require('./delete')
+  delete: require('./delete'),
+  purgeDeleted: require('./purgeDeleted')
 };

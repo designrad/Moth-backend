@@ -20,7 +20,8 @@ module.exports = async((req, res) => {
     comments: comments,
     coordinates: coordinates,
     identification: CONST.identificationPhoto.UNCERTAIN.name,
-    delete: false
+    isDelete: false,
+    date: new Date()
   });
 
 

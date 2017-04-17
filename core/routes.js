@@ -2,7 +2,6 @@
 let multipart = require('connect-multiparty');
 
 let admin = require('./admin'),
-    user = require('./user'),
     path = require('./path'),
     image = require('./image'),
     api = require('./api');
@@ -16,6 +15,7 @@ module.exports = (srv, express) => {
     srv.post('/signIn', admin.signIn);
     srv.post('/signUp', admin.signUp);
     srv.post('/check', admin.sessionCheck);
+    srv.post('/image/purge-deleted', image.purgeDeleted)
 
     //image
     srv.post('/image/upload', multipart({ uploadDir: path.PUBLIC.MOTH_PICTURES }), image.upload);
@@ -29,7 +29,7 @@ module.exports = (srv, express) => {
     srv.use('/assets/img', express.static(path.PUBLIC.IMG));
 
     //api
-    srv.post('/image/identificationUpdate', api.identificationUpdate);
     srv.post('/image/update', api.photoUpdate);
     srv.post('/image/archive', api.archive);
+    srv.post('/image', api.image);
 };

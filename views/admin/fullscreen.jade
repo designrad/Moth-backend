@@ -5,6 +5,9 @@ html
         link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
         link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css", integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp", crossorigin="anonymous")
         link(rel="stylesheet", href="/assets/css/main.css")
+        link(rel="stylesheet", href="/assets/css/fullscreen.css")
+        link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css')
+
     body
         .nav-bar
             .nav-bar-left.full-height
@@ -13,14 +16,55 @@ html
                     .glyphicon.glyphicon-log-out
                     span.logout Logout
             .nav-bar-right.full-height
-                a.del(href='#', style="padding-right: 20px;")
+                a.del(style="padding-right: 20px;")
                     .glyphicon.glyphicon-remove-circle
-                    span.logout Purge deleted images
+                    span.del Purge deleted images
                 a.bar.btn.default Export geolocations
                 a.bar.btn.default#archive-images Export images
                 a.bar.btn.default(href="/") Table view
-
+        #image-info
+            .container-images
+                .swiper
+                    .swiper-container.gallery-top
+                        .swiper-wrapper
+                            each image in images
+                                .swiper-slide(id="#{image._id}", style='background-image:url(/image/#{image.name})', data-name="#{image.name}")
+                    .swiper-container.gallery-thumbs
+                        .swiper-wrapper
+                            each image in images
+                                .swiper-slide(id="#{image._id}", style='background-image:url(/image/#{image.name})', data-name="#{image.name}")
+                    .swiper-controller
+                        .swiper-buttons
+                            .btn.swiper-btn-prev.swiper-btn
+                                .glyphicon.glyphicon-chevron-left
+                            .btn.swiper-btn-next.swiper-btn
+                                .glyphicon.glyphicon-chevron-right
+                        .description-swiper-controller You can use keyboard “left” and “right” arrows too
+            .container-description
+                .picture-device-info
+                    .description-title Picture / Device info
+                    #date-create-image --/--/--
+                    #name-image --/--/--
+                .location-accuracy
+                    .description-title Location / accuracy
+                    #coordinates --/--/--
+                    #radius --/--/--
+                .image-url
+                    .description-title Image URL
+                    a#url(href="#" download) #
+                .comments
+                    .description-title Comments
+                    #comments-image --/--/--
+                .identification
+                    .description-title Identification
+                    #identifications
+                        each identification in identifications
+                            button.identification(name="#{identification.name}") #{identification.name}
+                        button.delete-img(name="delete") delete
 
     script(src="https://code.jquery.com/jquery-3.2.1.js", integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=", crossorigin="anonymous")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.jquery.min.js')
     script(type='text/javascript', src='/assets/js/main.js')
+    script(type='text/javascript', src='/assets/js/fullscreen.js')

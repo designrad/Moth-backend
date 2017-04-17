@@ -17,7 +17,6 @@ module.exports = async((req, res) => {
 
   let images = await(model.Photo.find().exec());
 
-  console.log('images', images);
   return res.render('admin/index', {
     title: "Admin panel",
     images,

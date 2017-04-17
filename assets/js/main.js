@@ -4,29 +4,24 @@ const identifications = {
   OTHER: {name: 'other', color: '#3498DB'}
 };
 
-$('.delete-img').click((event) => {
-  let filename = event.target.dataset.name;
+function imageUpdate(filename, event) {
+    $.post(`/image/update`, {
+      filename,
+      isDelete: true
+    }, function(req, status){
+        if (req.status != 'fail') {
+          let image = req.data.image;
+          let el = $(event.target);
+          el.removeClass("btn-delete");
 
-  $.post(`/image/update`, {
-    filename,
-    isDelete: true
-  }, function(req, status){
-      if (req.status != 'fail') {
-        let image = req.data.image;
-        let el = $(event.target);
-        el.removeClass("btn-delete");
-
-        if (image.isDelete) { el.addClass('btn-delete') }
-      } else if (req.data.msg == "Unauthorized") {
-        window.location.href = "/login";
-      }
-    });
-});
-
-$('button.identification').on('click', (event) => {
-  let filename = event.target.dataset.name,
-    identification = event.target.name,
-    id = event.target.id;
+          if (image.isDelete) { el.addClass('btn-delete') }
+        } else if (req.data.msg == "Unauthorized") {
+          window.location.href = "/login";
+        }
+      });
+}
+function changeIdentification(filename, event) {
+  const identification = event.target.name;
 
   $.post(`/image/update`, {
     identification,
@@ -39,7 +34,8 @@ $('button.identification').on('click', (event) => {
       window.location.href = "/login";
     }
   });
-});
+}
+
 
 //#archive-images
 $('a#archive-images').on('click', (event) => {

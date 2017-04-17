@@ -4,7 +4,8 @@ let async = require('asyncawait/async'),
   await = require('asyncawait/await');
 
 let model = require('../db/model'),
-  API = require('../APILib');
+  API = require('../APILib'),
+  CONST = require('../constants');
 
 module.exports = async((req, res) => {
   let dataSession = req.session.data;
@@ -15,7 +16,11 @@ module.exports = async((req, res) => {
     return res.redirect('/login');
   }
 
+  let images = await(model.Photo.find().exec());
+
   res.render('admin/fullscreen', {
-    title: "Fullscreen"
+    title: "Fullscreen",
+    images,
+    identifications: CONST.identificationPhoto
   })
 });

@@ -7,7 +7,8 @@ let PhotoSchema = mongoose.Schema({
   comments: { type: String },
   coordinates: { type: String },
   identification: { type: String },
-  isDelete: { type: Boolean }
+  isDelete: { type: Boolean },
+  date: { type: Date }
 });
 
 module.exports = mongoose.model('Photo', PhotoSchema);

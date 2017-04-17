@@ -1,0 +1,86 @@
+#image-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.swiper {
+    width: 893px;
+    height: 664px;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.swiper-slide {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.gallery-top {
+    height: 80%;
+    width: 100%;
+}
+.gallery-thumbs {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+.gallery-thumbs .swiper-slide {
+    width: 25%;
+    height: 100%;
+    opacity: 0.4;
+}
+.gallery-thumbs .swiper-slide-active {
+    opacity: 1;
+}
+
+.swiper-controller{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+}
+
+.swiper-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.swiper-btn {
+    margin: 10px 15px;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    font-size: 14px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+
+.description-swiper-controller {
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+}
+
+.container-description {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 15px 30px;
+}
+
+
+.picture-device-info, .location-accuracy, .image-url, .comments, .identification {
+    margin-bottom: 35px;
+}
+
+.description-title {
+    font-size: 18pt;
+}

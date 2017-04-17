@@ -7,9 +7,7 @@ let model = require('../db/model'),
   API = require('../APILib');
 
 module.exports = async((req, res) => {
-  let dataSession = req.session.data,
-    filename = req.body.filename,
-    identification = req.body.identification;
+  let dataSession = req.session.data;
 
   if (dataSession && dataSession.session && dataSession.userId) {
     let session = await(model.Session.findOne({admin: dataSession.userId}).exec());
@@ -18,12 +16,9 @@ module.exports = async((req, res) => {
     return API.fail(res, API.errors.UNAUTHORIZED)
   }
 
-  // identificationUpdate
+  let filename = req.body.filename;
+
   let photo = await(model.Photo.findOne({name: filename}).exec());
-  if (photo) {
-    photo.identification = identification;
-    await (photo.save());
-  }
 
   return API.success(res, {
     image: photo
