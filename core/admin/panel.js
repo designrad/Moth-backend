@@ -8,18 +8,22 @@ let model = require('../db/model'),
   CONST = require('../constants');
 
 module.exports = async((req, res) => {
-  console.log('get panel');
+  let page = req.param('page');
+  if (!page) page = 1;
   let dataSession = req.session.data;
   if (!dataSession || !dataSession.session || !dataSession.userId) { return res.redirect('/login') }
 
   let session = await(model.Session.findOne({admin: dataSession.userId}).exec());
   if (session.session != dataSession.session) { return res.redirect('/login') }
 
-  let images = await(model.Photo.find().skip(1).limit(10));
+  const count = await(model.Photo.count());
+  let images = await(model.Photo.find().skip((page - 1) * 10).limit(10).exec());
 
   return res.render('admin/index', {
     title: "Admin panel",
     images,
+    numberPage: page,
+    countPage: Math.ceil(count / 10),
     identifications: CONST.identificationPhoto
   });
 });

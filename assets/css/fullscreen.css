@@ -1,4 +1,6 @@
 #image-info {
+    margin-top: 15px;
+    margin-left: 15px;
     display: flex;
     flex-direction: row;
 }

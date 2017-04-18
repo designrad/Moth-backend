@@ -40,7 +40,10 @@ html
                                     .date= moment(image.date).format("DD.MM.YYYYY HH:mm:ss")
                                     .device #{image.name}
 
-                        td.location-accuracy #{image.coordinates}
+                        td
+                            .location-accuracy
+                                .coordinates #{image.coordinates}
+                                .accuracy 250 meters
                         td.image-url
                             a(href="/image/#{image.name}", download) External-link
                         td.comments #{image.comments}
@@ -55,6 +58,18 @@ html
                                     button.delete-img.btn-delete(name="delete" data-id="#{image._id}" data-name="#{image.name}") delete
                                 else
                                     button.delete-img(name="delete" data-id="#{image._id}" data-name="#{image.name}") delete
+
+        .page-pagination
+            ul.pagination
+                - var page = 1
+                while page < countPage + 1
+                    if page == numberPage
+                        li.active
+                            a(href='/?page=#{page}')= page
+                    else
+                        li
+                            a(href='/?page=#{page}')= page
+                    - page++
 
     script(src="https://code.jquery.com/jquery-3.2.1.js", integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=", crossorigin="anonymous")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")

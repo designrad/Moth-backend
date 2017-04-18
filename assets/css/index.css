@@ -32,3 +32,18 @@ button.btn {
     display: flex;
     justify-content: center;
 }
+
+.page-pagination {
+    padding: 0 25px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.location-accuracy{
+    display: flex;
+    flex-direction: column;
+}
+
+.coordinates {}
+
+.accuracy {}
