@@ -51,6 +51,8 @@ let path = require('./core/path'),
 
 let srv = express();
 
+srv.locals.moment = require('moment');
+
 let app = {
   express: srv,
   mongoLib

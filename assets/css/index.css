@@ -7,8 +7,9 @@ button.btn {
     margin: 5px;
 }
 
-.picture-device-info {
+.picture-device-info  {
     display: flex;
+    flex: 1;
     flex-direction: row;
 }
 
@@ -19,10 +20,15 @@ button.btn {
     flex-direction: column;
 }
 
-.date {
-
+.location-accuracy {
+    flex: 1;
 }
 
-.device {
+.comments {
+    width: 330px;
+}
 
+.identification {
+    display: flex;
+    justify-content: center;
 }

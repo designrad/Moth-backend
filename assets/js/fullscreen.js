@@ -65,17 +65,7 @@ function format(value) {
 }
 
 function renderDescription(filename, image) {
-  const date = new Date(image.date);
-  const y = date.getFullYear(),
-    m = date.getMonth(),
-    d = date.getDate(),
-    hour = date.getHours(),
-    min = date.getMinutes(),
-    sec = date.getSeconds();
-  console.log(y, m , d, hour, min, sec);
-
-
-  $('#date-create-image').html(`${format(d)}.${format(m)}.${y} ${format(hour)}:${format(min)}:${format(sec)}`);
+  $('#date-create-image').html(moment(image.date).format("DD.MM.YYYYY HH:mm:ss"));
   $('#name-image').html(image.name);
   $('#coordinates').html(image.coordinates);
   $('#radius').html('250 meters');

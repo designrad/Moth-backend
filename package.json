@@ -21,7 +21,7 @@
     "gridfs-stream": "^1.1.1",
     "jade": "^1.11.0",
     "mkdirp": "^0.5.1",
-    "moment": "^2.13.0",
+    "moment": "^2.18.1",
     "mongoose": "^4.9.4",
     "mongoose-file": "0.0.2",
     "node-fetch": "^1.5.2",
