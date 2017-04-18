@@ -21,15 +21,16 @@ module.exports = async((req, res) => {
   }
 
   let images = await(model.Photo.find().exec());
+  const archiveName = `${utils.generateRandomString(20)}.zip`;
 
   for (let i = 0; i < images.length; i++) {
     const image = images[i];
-    zip.file(image.name, path.PUBLIC.MOTH_PICTURES + `/${image.name}`);
+    zip.file(image.name, fs.readFileSync(path.PUBLIC.MOTH_PICTURES + `/${image.name}`), {base64: true});
   }
 
-  let data = zip.generate({ base64:false, compression: 'DEFLATE' });
-  const archiveName = `${utils.generateRandomString(20)}.zip`;
-  fs.writeFileSync(path.PUBLIC.ARCHIVES + `/${archiveName}`, data, 'binary');
+  let data = zip.generate({ base64: false, compression: 'DEFLATE' });
+
+  fs.writeFile(path.PUBLIC.ARCHIVES + `/${archiveName}`, data, 'binary');
 
   return API.success(res, {
     archiveName

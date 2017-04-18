@@ -20,7 +20,6 @@ module.exports = (srv, express) => {
     //image
     srv.post('/image/upload', multipart({ uploadDir: path.PUBLIC.MOTH_PICTURES }), image.upload);
     srv.post('/image/delete', image.delete);
-    srv.use('/image', express.static(path.PUBLIC.MOTH_PICTURES));
 
     //assets
     srv.use('/assets/css', express.static(path.PUBLIC.STYLE));
@@ -32,4 +31,8 @@ module.exports = (srv, express) => {
     srv.post('/image/update', api.photoUpdate);
     srv.post('/image/archive', api.archive);
     srv.post('/image', api.image);
+
+    //
+    srv.use('/image', express.static(path.PUBLIC.MOTH_PICTURES));
+    srv.use('/archive/download', express.static(path.PUBLIC.ARCHIVES));
 };

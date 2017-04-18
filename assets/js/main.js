@@ -42,7 +42,14 @@ $('a#archive-images').on('click', (event) => {
 
   $.post(`/image/archive`, {}, function(req, status){
     if (req.status != 'fail') {
-      console.log('files archive');
+      let link = document.createElement("a");
+      link.download = req.data.archiveName;
+      link.href = '/archive/download/' + req.data.archiveName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      // delete link;
+      // console.log('files archive');
     } else if (req.data.msg == "Unauthorized") {
       window.location.href = "/login";
     }

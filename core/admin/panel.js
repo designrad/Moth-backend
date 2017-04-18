@@ -15,7 +15,7 @@ module.exports = async((req, res) => {
   let session = await(model.Session.findOne({admin: dataSession.userId}).exec());
   if (session.session != dataSession.session) { return res.redirect('/login') }
 
-  let images = await(model.Photo.find().exec());
+  let images = await(model.Photo.find().skip(1).limit(10));
 
   return res.render('admin/index', {
     title: "Admin panel",
