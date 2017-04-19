@@ -35,15 +35,16 @@ html
                     tr(id="#{image._id}")
                         td
                             .picture-device-info
-                                image(src="/image/#{image.name}", style="width: 90px; height: 66px;")
+                                a(href="/image/#{image.name}", target="_blank")
+                                    image.picture(src="/image/#{image.name}", style="width: 90px; height: 66px;")
                                 .divice-info
                                     .date= moment(image.date).format("DD.MM.YYYYY HH:mm:ss")
-                                    .device #{image.name}
+                                    a.device #{image.device}
 
                         td
                             .location-accuracy
                                 .coordinates #{image.coordinates}
-                                .accuracy 250 meters
+                                .accuracy #{image.accuracy} meters
                         td.image-url
                             a(href="/image/#{image.name}", download) External-link
                         td.comments #{image.comments}
