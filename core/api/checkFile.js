@@ -6,13 +6,14 @@ let async = require('asyncawait/async'),
 
 let API = require('../APILib'),
   path = require('../path'),
-  utils = require('../utils');
+  utils = require('../utils'),
+  CONST = require('../constants');
 
 module.exports = async((req, res) => {
   let fileName = req.body.filename,
-    p = path.PUBLIC.ARCHIVES + '/images.zip';
+    p = path.PUBLIC.ARCHIVES + `/${CONST.filesName.images}`;
 
-  if (fileName == 'geolocations.txt') {
+  if (fileName == CONST.filesName.geolocations) {
     p = path.PUBLIC.GEOLOCATIONS + `/${fileName}`;
   }
 

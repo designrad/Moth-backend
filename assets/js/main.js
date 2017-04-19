@@ -3,7 +3,10 @@ const identifications = {
   UNCERTAIN: {name: 'uncertain', color: '#F39C12'},
   OTHER: {name: 'other', color: '#3498DB'},
   DELETE: {name: 'delete', color: '#E74C3C'}
-};
+}, filesName = {
+  geolocations: 'geolocations.txt',
+  images: 'images.zip'
+}
 
 $( document ).ready(function() {});
 
@@ -89,9 +92,9 @@ function download(urlDownload, fileName) {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  if (fileName == 'images.zip') {
+  if (fileName == filesName.images) {
     loaderHide($('#archive-images'), 'Export images')
-  } else if (fileName == 'geolocations.txt') {
+  } else if (fileName == filesName.geolocations) {
     loaderHide($('#geolocations'), 'Export geolocations')
   }
 }

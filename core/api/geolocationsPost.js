@@ -9,7 +9,8 @@ let async = require('asyncawait/async'),
 let model = require('../db/model'),
   API = require('../APILib'),
   path = require('../path'),
-  utils = require('../utils');
+  utils = require('../utils'),
+  CONST = require('../constants');
 
 module.exports = async((req, res) => {
   let dataSession = req.session.data;
@@ -22,7 +23,7 @@ module.exports = async((req, res) => {
   }
 
   const images = await(model.Photo.find().exec()),
-    fileName = `geolocations.txt`; //geolocations.json
+    fileName = CONST.filesName.geolocations;
 
   if (fs.existsSync(path.PUBLIC.GEOLOCATIONS + `/${fileName}`)) {
     await(fs.unlink(path.PUBLIC.GEOLOCATIONS + `/${fileName}`));

@@ -4,5 +4,8 @@ module.exports = {
     UNCERTAIN: {name: 'uncertain', color: '#F39C12'},
     OTHER: {name: 'other', color: '#3498DB'},
     DELETE: {name: 'delete', color: '#E74C3C'}
+  }, filesName: {
+    geolocations: 'geolocations.txt',
+    images: 'images.zip'
   }
 };

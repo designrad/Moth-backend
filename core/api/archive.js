@@ -8,7 +8,8 @@ let async = require('asyncawait/async'),
 let model = require('../db/model'),
   API = require('../APILib'),
   path = require('../path'),
-  utils = require('../utils');
+  utils = require('../utils'),
+  CONST = require('../constants');
 
 module.exports = async((req, res) => {
   let dataSession = req.session.data;
@@ -21,7 +22,7 @@ module.exports = async((req, res) => {
   }
 
   let images = await(model.Photo.find().exec());
-  const fileName = `images.zip`;
+  const fileName = CONST.filesName.images;
 
   if (fs.existsSync(path.PUBLIC.GEOLOCATIONS + `/${fileName}`)) {
     fs.unlink(path.PUBLIC.GEOLOCATIONS + `/${fileName}`);
