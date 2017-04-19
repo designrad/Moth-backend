@@ -45,7 +45,7 @@ let path = require('./core/path'),
   model = require('./core/db/model'),
   API = require('./core/APILib'),
   routes = require('./core/routes'),
-  socket = require('./core/socket');
+  socket = require('./core/socket')
 
 let srv = express();
 srv.locals.moment = require('moment');
