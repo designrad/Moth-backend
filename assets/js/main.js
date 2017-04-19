@@ -5,9 +5,6 @@ const identifications = {
   DELETE: {name: 'delete', color: '#E74C3C'}
 };
 
-let clickImage = false,
-  clickGeolocations = false;
-
 $( document ).ready(function() {});
 
 function changeIdentification(filename, event) {
