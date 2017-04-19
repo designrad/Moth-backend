@@ -6,13 +6,21 @@ let images = [],
 
 $( document ).ready(function() {
   initSwiper();
+  initSwiperValue();
+  let name = getNameByActiveIndex();
+  if (name) {
+    getImage(name);
+  }
+});
+
+function initSwiperValue() {
   activeIndex = galleryTop.activeIndex;
   slides = galleryTop.slides;
   let name = getNameByActiveIndex();
   if (name) {
     getImage(name);
   }
-});
+}
 
 function initSwiper() {
   galleryTop = new Swiper('.gallery-top', {
@@ -47,6 +55,7 @@ function initSwiper() {
   galleryThumbs.params.control = galleryTop;
 }
 
+//get name images
 function getNameByActiveIndex () {
   if (slides.length) {
     let slide = slides[activeIndex];
@@ -59,11 +68,6 @@ function getImageByFilename(filename) {
   return images[filename];
 }
 
-function format(value) {
-  if (value < 10) return '0' + value;
-  return value;
-}
-
 function renderDescription(filename, image) {
   $('#date-create-image').html(moment(image.date).format("DD.MM.YYYYY HH:mm:ss"));
   $('#name-image').html(image.name);
@@ -71,11 +75,6 @@ function renderDescription(filename, image) {
   $('#radius').html('250 meters');
   $('#url').attr('href', '/image/' + image.name).html(location.hostname + '/image/' + image.name);
   $('#comments-image').html(image.comments);
-
-  $('button.delete-img').removeClass('btn-delete');
-  if (image.isDelete) {
-    $('button.delete-img').addClass('btn-delete');
-  }
   selectIdentification(filename, image);
 }
 
@@ -95,6 +94,7 @@ function getImage(filename) {
     renderDescription(filename, img);
     return;
   }
+
   $.post(`/image`, {filename}, function(req, status){
 
     if (req.status != 'fail') {
@@ -109,26 +109,6 @@ function getImage(filename) {
   });
 }
 
-$('.delete-img').click((event) => {
-  let filename = getNameByActiveIndex();
-
-  $.post(`/image/update`, {
-    filename,
-    isDelete: true
-  }, function(req, status){
-    if (req.status != 'fail') {
-      let image = req.data.image;
-      let el = $(event.target);
-      el.removeClass("btn-delete");
-
-      if (image.isDelete) { el.addClass('btn-delete') }
-      images[filename] = image;
-    } else if (req.data.msg == "Unauthorized") {
-      window.location.href = "/login";
-    }
-  });
-});
-
 $('button.identification').on('click', (event) => {
   let filename = getNameByActiveIndex(),
     identification = event.target.name;
@@ -139,6 +119,7 @@ $('button.identification').on('click', (event) => {
   }, function(req, status){
     if (req.status != 'fail') {
       let image = req.data.image;
+      images[filename] = image;
       selectIdentification(filename, image);
     } else if (req.data.msg == "Unauthorized") {
       window.location.href = "/login";
@@ -146,13 +127,14 @@ $('button.identification').on('click', (event) => {
   });
 });
 
-function getRemoveIndex (idsDeleted) {
+function getRemoveIndex (imgs) {
   let ids = [];
-  for (let i = 0; i < idsDeleted.length; i++) {
-    let idDel = idsDeleted[i];
+  for (let i = 0; i < imgs.length; i++) {
+    let image = imgs[i];
     for (let j = 0; j < slides.length; j++) {
       let slide = slides[j];
-      if (slide.id == idDel) {
+      if (slide.id == image.id) {
+        images[image.name] = null;
         ids.push(j);
         break;
       }
@@ -164,11 +146,12 @@ function getRemoveIndex (idsDeleted) {
 $('span.del').on('click', (event) => {
   $.post(`/image/purge-deleted`, {}, function(req, status){
     if (req.status != 'fail') {
-      let ids = req.data.idsDeleted;
-      if (ids.length) {
-        const deletedIds = getRemoveIndex(ids);
+      let imgs = req.data.images;
+      if (imgs.length) {
+        const deletedIds = getRemoveIndex(imgs);
         galleryTop.removeSlide(deletedIds);
         galleryThumbs.removeSlide(deletedIds);
+        initSwiperValue();
         console.log('purge-deleted');
       } else {
         console.log('No data to delete');

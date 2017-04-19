@@ -12,9 +12,18 @@ module.exports = async((req, res) => {
     let username = req.body.username,
         password = req.body.password;
 
-    if (!username || !password) return res.redirect('/login');
+    let errors = {};
+    if (!username) {
+        errors['username'] = "The field can not be empty";
+    }
+    if (!password) {
+      errors['password'] = "The field can not be empty";
+    }
+    if (errors.username || errors.password) return res.render('auth/login', {errors});
     let admin = await(model.Admin.findOne({username: username}).select('+password').exec());
-    if(!admin) return res.redirect('/login');
+    if(!admin) return res.render('auth/login', {errors: {
+        password: "Incorrect username or password"
+    }});
 
     admin.comparePassword(password, async((error, isMatch) => {
         if (error) { return res.redirect('/login') }

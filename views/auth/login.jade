@@ -13,14 +13,18 @@ html
                 .link-domain
                     a(href="/", style="align-self: flex-end;") www.malerjakt.no
             .login-panel
-                form#login-form(action='/signIn', method='post', role='form', style='display: block;')
+                form#login-form(action='/login', method='post', role='form', style='display: block;')
                     .group-input
                         span(style="padding-left: 15px; font-size: 14pt;") Login
-                        input#username.control(type='text', name='username', tabindex='1', placeholder='Username', value='admin@admin.com')
+                        input#username.control(type='text', name='username', tabindex='1', placeholder='Username')
+                        if errors && errors.username
+                            span.error #{errors.username}
                     .group-input
                         span(style="padding-left: 15px; font-size: 14pt;") Password
-                        input#password.control(type='password', name='password', tabindex='2', placeholder='Password', value="admin@admin.com")
-                    a.access-link(href="#") No access? Contact project (mailto link)
+                        input#password.control(type='password', name='password', tabindex='2', placeholder='Password')
+                        if errors && errors.password
+                            span.error #{errors.password}
+                    a.access-link(href="mailto:jane.jepsen@nina.no") No access? Contact project (mailto link)
                     .group-input
                         .right
                             input#login-submit.form-control.btn.btn-login(type='submit', name='login-submit', tabindex='4', value='Login')

@@ -7,18 +7,15 @@ let admin = require('./admin'),
     api = require('./api');
 
 module.exports = (srv, express) => {
-    srv.get('/', admin.panel);
+    srv.get('/', admin.home);
     srv.get('/fullscreen', admin.fullscreen);
     srv.get('/login', admin.login);
-    srv.get('/reg', admin.reg);
+    srv.post('/login', admin.signIn);
     srv.get('/logout', admin.logout);
-    srv.post('/signIn', admin.signIn);
-    srv.post('/signUp', admin.signUp);
-    srv.post('/check', admin.sessionCheck);
-    srv.post('/image/purge-deleted', image.purgeDeleted)
 
     //image
     srv.post('/image/upload', multipart({ uploadDir: path.PUBLIC.MOTH_PICTURES }), image.upload);
+    srv.post('/image/purge-deleted', image.purgeDeleted)
     srv.post('/image/delete', image.delete);
 
     //assets
@@ -26,13 +23,15 @@ module.exports = (srv, express) => {
     srv.use('/assets/js', express.static(path.PUBLIC.JS));
     srv.use('/assets/libs', express.static(path.PUBLIC.LIBS));
     srv.use('/assets/img', express.static(path.PUBLIC.IMG));
+    srv.use('/image', express.static(path.PUBLIC.MOTH_PICTURES));
+    srv.use('/archive/download', express.static(path.PUBLIC.ARCHIVES));
+    srv.use('/geolocations/download', express.static(path.PUBLIC.GEOLOCATIONS))
 
     //api
     srv.post('/image/update', api.photoUpdate);
     srv.post('/image/archive', api.archive);
     srv.post('/image', api.image);
-
-    //
-    srv.use('/image', express.static(path.PUBLIC.MOTH_PICTURES));
-    srv.use('/archive/download', express.static(path.PUBLIC.ARCHIVES));
+    srv.post('/photos', api.photos);
+    srv.get('/geolocations', api.geolocationsGet);
+    srv.post('/geolocations', api.geolocationsPost);
 };

@@ -1,10 +1,13 @@
 'use strict';
 
 let async = require('asyncawait/async'),
-  await = require('asyncawait/await');
+  await = require('asyncawait/await'),
+  fs = require('fs');
 
 let model = require('../db/model'),
-  API = require('../APILib');
+  API = require('../APILib'),
+  CONST = require('../constants'),
+  path = require('../path');
 
 module.exports = async((req, res) => {
   let dataSession = req.session.data;
@@ -16,8 +19,20 @@ module.exports = async((req, res) => {
     return API.fail(res, API.errors.UNAUTHORIZED)
   }
 
-  let idsDeleted = await(model.Photo.find({isDelete: true})).map(function(item){ return item._id });
-  await(model.Photo.find({isDelete: true}).remove());
+  let images = await(model.Photo.find({ identification: CONST.identificationPhoto.DELETE.name })).map(function(item){ return {
+    id: item._id,
+    name: item.name
+  }});
 
-  return API.success(res, {idsDeleted});
+  for (let i = 0; i < images.length; i++){
+    let image = images[i];
+    console.log(image.id, image.name)
+    if (fs.existsSync(path.PUBLIC.MOTH_PICTURES + `/${image.name}`)) {
+      fs.unlink(path.PUBLIC.MOTH_PICTURES + `/${image.name}`, (err) => {});
+    }
+  }
+
+  await(model.Photo.find({ identification: CONST.identificationPhoto.DELETE.name }).remove());
+
+  return API.success(res, {images});
 });

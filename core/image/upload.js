@@ -9,26 +9,35 @@ let model = require('../db/model'),
 
 module.exports = async((req, res) => {
   let file = req.files.file,
+    device = req.body.device,
+    accuracy = req.body.accuracy,
     comments = req.body.comments,
-    coordinates = req.body.coordinates
+    coordinates = req.body.coordinates,
+    author = req.body.author ? req.body.author : '',
+    team = req.body.team ? req.body.team : '',
+    email = req.body.email ? req.body.email : '';
 
+  if (!file || !accuracy || !comments || !coordinates || !device) { return API.fail(res, "Not all data is filled out") }
   let path = file.path.split('/');
   let fileName = path[path.length - 1];
 
   let newPhoto = new model.Photo({
     name: fileName,
-    comments: comments,
-    coordinates: coordinates,
+    device,
+    accuracy,
+    comments,
+    coordinates,
     identification: CONST.identificationPhoto.UNCERTAIN.name,
-    isDelete: false,
-    date: new Date()
+    date: new Date(),
+    author,
+    team,
+    email
   });
 
 
   newPhoto = await(newPhoto.save());
 
   return API.success(res, {
-    _id: newPhoto._id,
-    photoInf: newPhoto
+    photo: newPhoto
   })
 });

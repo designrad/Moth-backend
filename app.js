@@ -36,7 +36,6 @@ isLog && console.time('[HC] Server ready! Time to up');
 let express = require('express'),
   sio = require('socket.io'),
   bodyParser = require('body-parser'),
-  fileUpload = require('express-fileupload'),
   mongoLib = require('./core/db/init.js'),
   session = require('express-session'),
   mkdirp = require('mkdirp'),
@@ -46,11 +45,9 @@ let path = require('./core/path'),
   model = require('./core/db/model'),
   API = require('./core/APILib'),
   routes = require('./core/routes'),
-  // utils = require('./core/utils'),
   socket = require('./core/socket');
 
 let srv = express();
-
 srv.locals.moment = require('moment');
 
 let app = {

@@ -1,25 +1,10 @@
 const identifications = {
   CORRECT: {name: 'correct', color: '#2ECC71'},
   UNCERTAIN: {name: 'uncertain', color: '#F39C12'},
-  OTHER: {name: 'other', color: '#3498DB'}
+  OTHER: {name: 'other', color: '#3498DB'},
+  DELETE: {name: 'delete', color: '#E74C3C'}
 };
 
-function imageUpdate(filename, event) {
-    $.post(`/image/update`, {
-      filename,
-      isDelete: true
-    }, function(req, status){
-        if (req.status != 'fail') {
-          let image = req.data.image;
-          let el = $(event.target);
-          el.removeClass("btn-delete");
-
-          if (image.isDelete) { el.addClass('btn-delete') }
-        } else if (req.data.msg == "Unauthorized") {
-          window.location.href = "/login";
-        }
-      });
-}
 function changeIdentification(filename, event) {
   const identification = event.target.name;
 
@@ -36,22 +21,31 @@ function changeIdentification(filename, event) {
   });
 }
 
-
 //#archive-images
 $('a#archive-images').on('click', (event) => {
+  downloadFile('/image/archive', '/image/download/');
+});
 
-  $.post(`/image/archive`, {}, function(req, status){
+//#geolocations
+$('a#geolocations').on('click', (event) => {
+  downloadFile('/geolocations', '/geolocations/download/');
+});
+
+function downloadFile(urlPost, urlDownload) {
+  $.post(urlPost, {}, function(req, status){
     if (req.status != 'fail') {
+      const fileName = req.data.fileName;
+      if (!fileName) return;
+
       let link = document.createElement("a");
-      link.download = req.data.archiveName;
-      link.href = '/archive/download/' + req.data.archiveName;
+      link.download = fileName;
+      link.href = `${urlDownload}` + fileName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      // delete link;
-      // console.log('files archive');
     } else if (req.data.msg == "Unauthorized") {
       window.location.href = "/login";
     }
   });
-});
+
+}

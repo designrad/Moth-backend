@@ -4,11 +4,15 @@ let mongoose = require('mongoose');
 
 let PhotoSchema = mongoose.Schema({
   name: { type: String },
+  device: { type: String },
+  accuracy: { type: Number },
   comments: { type: String },
   coordinates: { type: String },
   identification: { type: String },
-  isDelete: { type: Boolean },
-  date: { type: Date }
+  date: { type: Date },
+  author: { type: String },
+  team: { type: String },
+  email: { type: String }
 });
 
 module.exports = mongoose.model('Photo', PhotoSchema);

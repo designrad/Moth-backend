@@ -7,6 +7,7 @@ let model = require('../db/model'),
     API = require('../APILib');
 
 module.exports = async((io) => {
+
     io.on('connection', function(socket){
         console.log('a user connected');
 

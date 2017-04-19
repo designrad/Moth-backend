@@ -62,18 +62,18 @@ button {
     border: 1px solid #979797;
 }
 
-.btn-correct {
-    background-color: #2ECC71;
-}
+/*.btn-correct {*/
+    /*background-color: #2ECC71;*/
+/*}*/
 
-.btn-uncertain {
-    background-color: #F39C12;
-}
+/*.btn-uncertain {*/
+    /*background-color: #F39C12;*/
+/*}*/
 
-.btn-other {
-    background-color: #3498DB;
-}
+/*.btn-other {*/
+    /*background-color: #3498DB;*/
+/*}*/
 
-.btn-delete {
-    background-color: #E74C3C;
-}
+/*.btn-delete {*/
+    /*background-color: #E74C3C;*/
+/*}*/

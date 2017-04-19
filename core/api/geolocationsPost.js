@@ -2,7 +2,8 @@
 
 let async = require('asyncawait/async'),
   await = require('asyncawait/await'),
-  zip = new require('node-zip')(),
+  jsonFile = require('jsonfile'),
+  moment = require('moment'),
   fs = require('fs');
 
 let model = require('../db/model'),
@@ -20,25 +21,31 @@ module.exports = async((req, res) => {
     return API.fail(res, API.errors.UNAUTHORIZED)
   }
 
-  let images = await(model.Photo.find().exec());
-  const fileName = `images.zip`;
+  const images = await(model.Photo.find().exec()),
+    fileName = `geolocations.txt`; //geolocations.json
 
   if (fs.existsSync(path.PUBLIC.GEOLOCATIONS + `/${fileName}`)) {
-    fs.unlink(path.PUBLIC.GEOLOCATIONS + `/${fileName}`);
+    await(fs.unlink(path.PUBLIC.GEOLOCATIONS + `/${fileName}`));
   }
 
+  let geolocationsJson = {};
   for (let i = 0; i < images.length; i++) {
     const image = images[i];
-    zip.file(image.name, fs.readFileSync(path.PUBLIC.MOTH_PICTURES + `/${image.name}`), {base64: true});
+    geolocationsJson[image.name] = {
+      id: image._id,
+      name: image.name,
+      comments: image.comments,
+      coordinates: image.coordinates,
+      identification: image.identification,
+      date: moment(image.date).format("DD.MM.YYYYY HH:mm:ss")
+    }
   }
 
-  let data = zip.generate({ base64: false, compression: 'DEFLATE' });
-
-  fs.writeFile(path.PUBLIC.ARCHIVES + `/${fileName}`, data, 'binary', (err) => {
+  jsonFile.writeFile(path.PUBLIC.GEOLOCATIONS + `/${fileName}`, geolocationsJson, function (err) {
     console.error(err)
     setTimeout(() => {
       console.log('setTimeout')
-    }, 2000);
+    }, 2000)
   });
 
   return API.success(res, {

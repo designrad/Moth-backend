@@ -17,7 +17,7 @@ $(function() {
 
 });
 
-$( "#register-form" ).submit(function( event ) {
+$( "#login-form" ).submit(function( event ) {
 
   // Stop form from submitting normally
   // event.preventDefault();

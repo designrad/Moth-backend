@@ -21,7 +21,6 @@ module.exports = async((req, res) => {
 
   let photo = await(model.Photo.findOne({name: filename}).exec());
   if (photo) {
-    if (data.isDelete) photo.isDelete = !photo.isDelete;
     if (data.identification) photo.identification = data.identification;
     await (photo.save());
   }

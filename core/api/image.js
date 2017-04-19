@@ -7,18 +7,21 @@ let model = require('../db/model'),
   API = require('../APILib');
 
 module.exports = async((req, res) => {
-  let dataSession = req.session.data;
+  let id = req.body.id,
+    filename = req.body.filename,
+    photo;
 
-  if (dataSession && dataSession.session && dataSession.userId) {
-    let session = await(model.Session.findOne({admin: dataSession.userId}).exec());
-    if (session.session != dataSession.session) { return API.fail(res, API.errors.UNAUTHORIZED) }
-  } else {
-    return API.fail(res, API.errors.UNAUTHORIZED)
+  try {
+    if (id) {
+      photo = await(model.Photo.findOne({_id: id}).exec());
+    } else if (filename) {
+      photo = await(model.Photo.findOne({name: filename}).exec());
+    }
+  } catch (e) {
+    return API.fail(res, e)
   }
 
-  let filename = req.body.filename;
-
-  let photo = await(model.Photo.findOne({name: filename}).exec());
+  if (!photo) { return API.fail(res, "photo not found") }
 
   return API.success(res, {
     image: photo

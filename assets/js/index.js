@@ -1,8 +1,3 @@
-$('.delete-img').click((event) => {
-  let filename = event.target.dataset.name;
-  imageUpdate(filename, event);
-});
-
 $('button.identification').on('click', (event) => {
   let filename = event.target.dataset.name;
 
@@ -13,12 +8,13 @@ $('span.del').on('click', (event) => {
 
   $.post(`/image/purge-deleted`, {}, function(req, status){
     if (req.status != 'fail') {
-      let ids = req.data.idsDeleted;
-      if (ids.length) {
-        ids.forEach((id) => {
-          $('tr#' + id).remove();
-        });
-        console.log('purge-deleted');
+      let image = req.data.images;
+      if (image.length) {
+        // ids.forEach((id) => {
+        //   $('tr#' + id).remove();
+        // });
+        // console.log('purge-deleted');
+        window.location.href = "/";
       } else {
         console.log('No data to delete');
       }

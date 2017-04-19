@@ -18,7 +18,7 @@ html
                 a.del(style="padding-right: 20px;")
                     .glyphicon.glyphicon-remove-circle
                     span.del Purge deleted images
-                a.bar.btn.default Export geolocations
+                a.bar.btn.default#geolocations Export geolocations
                 a.bar.btn.default#archive-images Export images
                 a.bar.btn.default(href="/fullscreen") Fullscreen
 
@@ -54,10 +54,6 @@ html
                                         button.identification(id="#{image._id}#{identification.name}", name="#{identification.name}" data-name="#{image.name}" style="background-color: #{identification.color};") #{identification.name}
                                     else
                                         button.identification(id="#{image._id}#{identification.name}", name="#{identification.name}" data-name="#{image.name}") #{identification.name}
-                                if image.isDelete
-                                    button.delete-img.btn-delete(name="delete" data-id="#{image._id}" data-name="#{image.name}") delete
-                                else
-                                    button.delete-img(name="delete" data-id="#{image._id}" data-name="#{image.name}") delete
 
         .page-pagination
             ul.pagination
@@ -72,6 +68,7 @@ html
                     - page++
 
     script(src="https://code.jquery.com/jquery-3.2.1.js", integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=", crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
     script(type='text/javascript', src='/assets/js/main.js')
     script(type='text/javascript', src='/assets/js/index.js')

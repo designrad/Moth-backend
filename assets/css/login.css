@@ -113,3 +113,10 @@ input.control {
     background-size: cover;
     min-width: 650px;
 }
+
+span.error {
+    width: 100%;
+    padding-left: 15px;
+    color: #E74C3C;
+    font-size: 12pt;
+}
