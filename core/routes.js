@@ -34,4 +34,5 @@ module.exports = (srv, express) => {
     srv.post('/photos', api.photos);
     srv.get('/geolocations', api.geolocationsGet);
     srv.post('/geolocations', api.geolocationsPost);
+    srv.post('/check-file', api.checkFile);
 };

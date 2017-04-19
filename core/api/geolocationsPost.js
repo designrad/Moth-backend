@@ -41,13 +41,16 @@ module.exports = async((req, res) => {
     }
   }
 
-  jsonFile.writeFile(path.PUBLIC.GEOLOCATIONS + `/${fileName}`, geolocationsJson, function (err) {
-    console.error(err)
-    setTimeout(() => {
-      console.log('setTimeout')
-    }, 2000)
-  });
+  await(jsonFile.writeFile(path.PUBLIC.GEOLOCATIONS + `/${fileName}`, geolocationsJson, function (err) {
+    console.error(err);
+    if (err) return API.fail(res, err);
 
+    setTimeout(() => {
+
+    }, 2000)
+  }));
+
+  console.log('success')
   return API.success(res, {
     fileName
   });

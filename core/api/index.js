@@ -4,5 +4,6 @@ module.exports = {
   image: require('./image'),
   geolocationsPost: require('./geolocationsPost'),
   geolocationsGet: require('./geolocationsGet'),
-  photos: require('./photos')
+  photos: require('./photos'),
+  checkFile: require('./checkFile')
 };

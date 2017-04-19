@@ -34,24 +34,23 @@ span.del {
     align-items: center;
 }
 
-a.bar {
+a.bar, button.bar {
+    position: relative;
     margin: 0 10px;
+    width: 151px;
+    height: 34px;
     background-color: #fff;
     display: flex;
-    align-items: center;
+    justify-content: center;
 }
 
-a.bar:hover {
+a.bar:hover, button.bar:hover {
     background-color: #f8ffac;
 }
 
 a.log {
     margin-left: 40px;
 }
-
-/*a.del {*/
-    /*margin-left: 20px;*/
-/*}*/
 
 button {
     outline: none;
@@ -62,18 +61,23 @@ button {
     border: 1px solid #979797;
 }
 
-/*.btn-correct {*/
-    /*background-color: #2ECC71;*/
-/*}*/
+.loader {
+    /*position: absolute;*/
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #3498db;
+    width: 22px;
+    height: 22px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
 
-/*.btn-uncertain {*/
-    /*background-color: #F39C12;*/
-/*}*/
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
 
-/*.btn-other {*/
-    /*background-color: #3498DB;*/
-/*}*/
-
-/*.btn-delete {*/
-    /*background-color: #E74C3C;*/
-/*}*/
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

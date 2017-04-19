@@ -126,17 +126,21 @@ let ServerBootstrap = () => {
       setTimeout(ServerBootstrap, 5000);
     });
 
-    model.Admin.findOne().then(r => {
-      if(!r) {
-        let admin = new model.Admin({
-          username: "admin",
-          email: 'admin@email.com',
-          password: 'admin123'
-        });
-        admin.save();
-        console.info('[HC] New admin with credentials "admin", "admin" created! Change password immediately in control panel. ');
-      }
-    });
+
+    // console.log(admins)
+    // for (let i = 0; i < admins.length; i++) {
+      model.Admin.findOne().then(r => {
+        if(!r) {
+          let admin = new model.Admin({
+            username: "admin",
+            email: 'admin@email.com',
+            password: 'admin123'
+          });
+          admin.save();
+          console.info(`[HC] New admin with credentials ${admin.username}, ${admin.email} created!`);
+        }
+      });
+    // }
 
     let io = sio(server);
     socket.auth(io);

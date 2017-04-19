@@ -18,8 +18,8 @@ html
                 a.del(style="padding-right: 20px;")
                     .glyphicon.glyphicon-remove-circle
                     span.del Purge deleted images
-                a.bar.btn.default#geolocations Export geolocations
-                a.bar.btn.default#archive-images Export images
+                button.bar.btn.default#geolocations Export geolocations
+                button.bar.btn.default#archive-images Export images
                 a.bar.btn.default(href="/fullscreen") Fullscreen
 
         table.table.table-striped
@@ -39,8 +39,10 @@ html
                                     image.picture(src="/image/#{image.name}", style="width: 90px; height: 66px;")
                                 .divice-info
                                     .date= moment(image.date).format("DD.MM.YYYYY HH:mm:ss")
-                                    a.device #{image.device}
-
+                                    if image.email
+                                        a.author #{image.author} (#{image.email})
+                                    else
+                                        a.author #{image.author}
                         td
                             .location-accuracy
                                 .coordinates #{image.coordinates}
