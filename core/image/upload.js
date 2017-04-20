@@ -13,13 +13,14 @@ module.exports = async((req, res) => {
     device = req.body.device,
     accuracy = req.body.accuracy,
     comments = req.body.comments,
-    coordinates = req.body.coordinates,
+    latitude = req.body.latitude,
+    longitude = req.body.longitude,
     author = req.body.author ? req.body.author : '',
     team = req.body.team ? req.body.team : '',
     email = req.body.email ? req.body.email : '',
     date = req.body.date;
 
-  if (!file || !accuracy || !comments || !coordinates || !device) { return API.fail(res, "Not all data is filled out") }
+  if (!file || !accuracy || !comments || !latitude || !longitude || !device) { return API.fail(res, "Not all data is filled out") }
   let path = file.path.split('/');
   let fileName = path[path.length - 1];
 
@@ -28,7 +29,8 @@ module.exports = async((req, res) => {
     device,
     accuracy,
     comments,
-    coordinates,
+    latitude,
+    longitude,
     identification: CONST.identificationPhoto.UNCERTAIN.name,
     date: date ? moment(date) : new Date(),
     author,

@@ -36,7 +36,8 @@ module.exports = async((req, res) => {
       id: image._id,
       name: image.name,
       comments: image.comments,
-      coordinates: image.coordinates,
+      latitude: image.latitude,
+      longitude: image.longitude,
       identification: image.identification,
       date: moment(image.date).format("DD.MM.YYYYY HH:mm:ss")
     }

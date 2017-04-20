@@ -33,7 +33,7 @@ html
                                         a.author #{image.author}
                         td
                             .location-accuracy
-                                .coordinates #{image.coordinates}
+                                .coordinates #{image.latitude} #{image.longitude}
                                 .accuracy #{image.accuracy} meters
                         td.image-url
                             a(href="/image/#{image.name}", download) External-link
