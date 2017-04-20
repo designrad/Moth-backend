@@ -13,7 +13,7 @@ $('span.del').on('click', (event) => {
         // ids.forEach((id) => {
         //   $('tr#' + id).remove();
         // });
-        // console.log('purge-deleted');
+        console.log('purge-deleted');
         window.location.href = "/";
       } else {
         console.log('No data to delete');

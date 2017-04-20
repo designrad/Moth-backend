@@ -164,7 +164,6 @@ API.get = url => {
  */
 
 API.post = (url, data) => {
-    console.log('post')
     let _body = '';
     if (typeof data == 'object') {
         for (let key in data) {

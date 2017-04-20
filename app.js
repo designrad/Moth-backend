@@ -34,7 +34,6 @@ isLog && console.log('[HC] Start server...');
 isLog && console.time('[HC] Server ready! Time to up');
 
 let express = require('express'),
-  sio = require('socket.io'),
   bodyParser = require('body-parser'),
   mongoLib = require('./core/db/init.js'),
   session = require('express-session'),
@@ -44,8 +43,7 @@ let express = require('express'),
 let path = require('./core/path'),
   model = require('./core/db/model'),
   API = require('./core/APILib'),
-  routes = require('./core/routes'),
-  socket = require('./core/socket')
+  routes = require('./core/routes');
 
 let srv = express();
 srv.locals.moment = require('moment');
@@ -127,23 +125,17 @@ let ServerBootstrap = () => {
     });
 
 
-    // console.log(admins)
-    // for (let i = 0; i < admins.length; i++) {
-      model.Admin.findOne().then(r => {
-        if(!r) {
-          let admin = new model.Admin({
-            username: "admin",
-            email: 'admin@email.com',
-            password: 'admin123'
-          });
-          admin.save();
-          console.info(`[HC] New admin with credentials ${admin.username}, ${admin.email} created!`);
-        }
-      });
-    // }
-
-    let io = sio(server);
-    socket.auth(io);
+    model.Admin.findOne().then(r => {
+      if(!r) {
+        let admin = new model.Admin({
+          username: "admin",
+          email: 'admin@email.com',
+          password: 'admin123'
+        });
+        admin.save();
+        console.info('[HC] New admin with credentials ${admin.username}, ${admin.email} created!');
+      }
+    });
 
     global.app = app;
   });

@@ -20,6 +20,7 @@ module.exports = async((req, res) => {
   let images = await(model.Photo.find().skip((page - 1) * 10).limit(10).exec());
 
   return res.render('admin/index', {
+    template: 'home',
     title: "Admin panel",
     images,
     numberPage: page,

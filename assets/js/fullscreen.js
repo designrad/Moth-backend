@@ -70,10 +70,10 @@ function getImageByFilename(filename) {
 
 function renderDescription(filename, image) {
   $('#date-create-image').html(moment(image.date).format("DD.MM.YYYYY HH:mm:ss"));
-  $('#name-image').html(image.device);
+  $('#name-image').html(`${image.author} ${image.email} ${image.team}`);
   $('#coordinates').html(image.coordinates);
   $('#radius').html(image.accuracy + ' meters');
-  $('#url').attr('href', '/image/' + image.name).html(location.hostname + '/image/' + image.name);
+  $('#url').attr('href', '/image/' + image.name).html(/*location.hostname + */'/image/' + image.name);
   $('#comments-image').html(image.comments);
   selectIdentification(filename, image);
 }

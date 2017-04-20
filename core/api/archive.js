@@ -36,7 +36,9 @@ module.exports = async((req, res) => {
   let data = zip.generate({ base64: false, compression: 'DEFLATE' });
 
   await(fs.writeFile(path.PUBLIC.ARCHIVES + `/${fileName}`, data, 'binary', (err) => {
-    console.error(err)
+    if (err) {
+      console.error(err)
+    }
   }));
 
   return API.success(res, {

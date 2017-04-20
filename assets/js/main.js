@@ -71,7 +71,6 @@ function checkFileForDownload(urlDownload, filename) {
     $.post('/check-file', {filename}, function(req, status) {
       if (req.status != 'fail') {
         let completed = req.data.completed;
-        console.log(completed);
         if (completed) {
           clearInterval(interval);
           download(urlDownload, filename)

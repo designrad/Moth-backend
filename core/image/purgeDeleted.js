@@ -26,7 +26,6 @@ module.exports = async((req, res) => {
 
   for (let i = 0; i < images.length; i++){
     let image = images[i];
-    console.log(image.id, image.name)
     if (fs.existsSync(path.PUBLIC.MOTH_PICTURES + `/${image.name}`)) {
       fs.unlink(path.PUBLIC.MOTH_PICTURES + `/${image.name}`, (err) => {});
     }
