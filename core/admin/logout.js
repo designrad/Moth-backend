@@ -10,10 +10,13 @@ module.exports = async((req, res) => {
   let dataSession = req.session.data,
     session = null;
 
+  //get session admin
   if (dataSession) { session = await(model.Session.findOne({admin: dataSession.userId}).exec()); }
 
+  //delete session
   if (session) { await(session.remove()); }
 
+  //clear user session
   req.session.data = utils.clearSessionData();
   res.redirect('/login')
 });

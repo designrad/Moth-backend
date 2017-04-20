@@ -1,9 +1,11 @@
+//update image
 $('button.identification').on('click', (event) => {
   let filename = event.target.dataset.name;
 
   changeIdentification(filename, event)
 });
 
+//purge deleted images
 $('span.del').on('click', (event) => {
 
   $.post(`/image/purge-deleted`, {}, function(req, status){

@@ -1,5 +1,5 @@
 module.exports = {
-    Admin: require('./Admin'),
-    Session: require('./Session'),
-    Photo: require('./Photo')
+    Admin: require('./Admin'), //model Admin
+    Session: require('./Session'), //model Session
+    Photo: require('./Photo') //model Session
 };

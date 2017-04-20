@@ -1,14 +1,18 @@
 let images = [],
-  activeIndex = 0,
-  slides = [],
-  galleryTop,
-  galleryThumbs;
+  activeIndex = 0, //active index for swiper
+  slides = [], //slides swiper
+  galleryTop, //swiper top
+  galleryThumbs; //swiper bottom
 
 $( document ).ready(function() {
+  //init swiper
   initSwiper();
+  //install global value
   initSwiperValue();
+  //get name image by active image
   let name = getNameByActiveIndex();
   if (name) {
+    //get image by ajax request
     getImage(name);
   }
 });
@@ -23,6 +27,7 @@ function initSwiperValue() {
 }
 
 function initSwiper() {
+  //install properties got swiper top
   galleryTop = new Swiper('.gallery-top', {
     nextButton: '.swiper-btn-next',
     prevButton: '.swiper-btn-prev',
@@ -43,6 +48,7 @@ function initSwiper() {
     }
   });
 
+  //install properties got swiper bottom
   galleryThumbs = new Swiper('.gallery-thumbs', {
     spaceBetween: 10,
     centeredSlides: true,
@@ -64,10 +70,12 @@ function getNameByActiveIndex () {
   return null;
 }
 
+//get object image
 function getImageByFilename(filename) {
   return images[filename];
 }
 
+//set description
 function renderDescription(filename, image) {
   $('#date-create-image').html(moment(image.date).format("DD.MM.YYYYY HH:mm:ss"));
   $('#name-image').html(`${image.author} ${image.email} ${image.team}`);
@@ -109,6 +117,7 @@ function getImage(filename) {
   });
 }
 
+//update image
 $('button.identification').on('click', (event) => {
   let filename = getNameByActiveIndex(),
     identification = event.target.name;
@@ -127,6 +136,7 @@ $('button.identification').on('click', (event) => {
   });
 });
 
+
 function getRemoveIndex (imgs) {
   let ids = [];
   for (let i = 0; i < imgs.length; i++) {
@@ -143,6 +153,7 @@ function getRemoveIndex (imgs) {
   return ids;
 }
 
+//purge deleted images
 $('span.del').on('click', (event) => {
   $.post(`/image/purge-deleted`, {}, function(req, status){
     if (req.status != 'fail') {

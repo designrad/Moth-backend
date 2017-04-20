@@ -9,6 +9,7 @@ let model = require('../db/model'),
 module.exports = async((req, res) => {
   let dataSession = req.session.data;
 
+  //check session
   if (dataSession && dataSession.session && dataSession.userId) {
     let session = await(model.Session.findOne({admin: dataSession.userId}).exec());
     if (session.session != dataSession.session) { return API.fail(res, API.errors.UNAUTHORIZED) }
@@ -16,9 +17,11 @@ module.exports = async((req, res) => {
     return API.fail(res, API.errors.UNAUTHORIZED)
   }
 
+  //get data of body
   let filename = req.body.filename,
     data = req.body;
 
+  //update photo
   let photo = await(model.Photo.findOne({name: filename}).exec());
   if (photo) {
     if (data.identification) photo.identification = data.identification;

@@ -17,6 +17,7 @@ module.exports = async((req, res) => {
     p = path.PUBLIC.GEOLOCATIONS + `/${fileName}`;
   }
 
+  //check file
   if (fs.existsSync(p)) {
     return API.success(res, {
       completed: true

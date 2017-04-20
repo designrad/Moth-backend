@@ -11,6 +11,7 @@ module.exports = async((req, res) => {
     filename = req.body.filename,
     photo;
 
+  //get photo by id or filename
   try {
     if (id) {
       photo = await(model.Photo.findOne({_id: id}).exec());

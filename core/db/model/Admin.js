@@ -10,6 +10,7 @@ let AdminSchema = mongoose.Schema({
   password: {type: String, select: false}
 });
 
+//presave for admin model
 AdminSchema.pre('save', function (next) {
   let user = this;
   if (!user.isModified('password')) return next();
@@ -27,7 +28,7 @@ AdminSchema.pre('save', function (next) {
   });
 });
 
-
+//compare password
 AdminSchema.methods.comparePassword = function (candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     if (err) return cb(err);

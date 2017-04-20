@@ -15,9 +15,7 @@ module.exports = (srv, express) => {
 
     //image
     srv.post('/image/upload', multipart({ uploadDir: path.PUBLIC.MOTH_PICTURES }), image.upload);
-    srv.post('/image/purge-deleted', image.purgeDeleted)
-    srv.post('/image/delete', image.delete);
-
+    srv.post('/image/purge-deleted', image.purgeDeleted);
     //assets
     srv.use('/assets/css', express.static(path.PUBLIC.STYLE));
     srv.use('/assets/js', express.static(path.PUBLIC.JS));

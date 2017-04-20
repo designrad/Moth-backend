@@ -14,6 +14,7 @@ module.exports = async((req, res) => {
     photos = await(model.Photo.find({device}))
   }
 
+  //get photos by device
   if (photos.length) {
     photos = photos.map(function (photo) {
       return {
