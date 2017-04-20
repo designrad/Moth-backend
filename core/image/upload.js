@@ -9,10 +9,10 @@ let model = require('../db/model'),
   CONST = require('../constants');
 
 module.exports = async((req, res) => {
-  let file = req.files.file,
-    device = req.body.device,
+  let file;
+  let device = req.body.device,
     accuracy = req.body.accuracy,
-    comments = req.body.comments,
+    comments = req.body.comments ? req.body.comments : '',
     latitude = req.body.latitude,
     longitude = req.body.longitude,
     author = req.body.author ? req.body.author : '',
@@ -20,7 +20,22 @@ module.exports = async((req, res) => {
     email = req.body.email ? req.body.email : '',
     date = req.body.date;
 
-  if (!file || !accuracy || !comments || !latitude || !longitude || !device) { return API.fail(res, "Not all data is filled out") }
+  if (req.files) {
+    file = req.files.file;
+  } else return API.fail(res, "No file photo")
+
+  console.log('file', file);
+  console.log('device', device);
+  console.log('accuracy', accuracy);
+  console.log('comments', comments);
+  console.log('latitude', latitude);
+  console.log('longitude', longitude);
+  console.log('author', author);
+  console.log('team', team);
+  console.log('email', email);
+  console.log('date', date);
+
+  if (!file || !accuracy || !latitude || !longitude || !device) { return API.fail(res, "Not all data is filled out") }
   let path = file.path.split('/');
   let fileName = path[path.length - 1];
 
@@ -32,7 +47,7 @@ module.exports = async((req, res) => {
     latitude,
     longitude,
     identification: CONST.identificationPhoto.UNCERTAIN.name,
-    date: date ? moment(date) : new Date(),
+    date: date ? new Date(date) : new Date(),
     author,
     team,
     email

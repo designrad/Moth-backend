@@ -9,7 +9,7 @@
 3. _Create user admin:_
     in `/app.js`
 
-    `model.Admin.findOne().then(r => {
+    ```model.Admin.findOne().then(r => {
         if(!r) {
             let admin = new model.Admin({
                 username: "admin", <== login
@@ -19,7 +19,7 @@
             admin.save();
             console.info('[HC] New admin with credentials ${admin.username}, ${admin.email} created!');
         }
-    });`
+    });```
  
 4. _run project:_
     `nodemon app.js` <=== debug
