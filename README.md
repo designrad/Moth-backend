@@ -1,6 +1,6 @@
 **Start project**
 
-1. _Clone project:_
+1. _Clone project:_ 
     `https://github.com/designrad/Moth-backend.git`
  
 2. _Install requirement:_
@@ -24,5 +24,8 @@
 4. _run project:_
     `nodemon app.js` <=== debug
     `node app.js` <=== deploy
+
+5. install constants for views:
+    file `/core/constants/index.js`
 
 `http://localhost:3001`

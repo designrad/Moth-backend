@@ -1,7 +1,8 @@
 'use strict';
 
 let async = require('asyncawait/async'),
-  await = require('asyncawait/await');
+  await = require('asyncawait/await'),
+  moment = require('moment');
 
 let model = require('../db/model'),
   API = require('../APILib'),
@@ -15,7 +16,8 @@ module.exports = async((req, res) => {
     coordinates = req.body.coordinates,
     author = req.body.author ? req.body.author : '',
     team = req.body.team ? req.body.team : '',
-    email = req.body.email ? req.body.email : '';
+    email = req.body.email ? req.body.email : '',
+    date = req.body.date;
 
   if (!file || !accuracy || !comments || !coordinates || !device) { return API.fail(res, "Not all data is filled out") }
   let path = file.path.split('/');
@@ -28,7 +30,7 @@ module.exports = async((req, res) => {
     comments,
     coordinates,
     identification: CONST.identificationPhoto.UNCERTAIN.name,
-    date: new Date(),
+    date: date ? moment(date) : new Date(),
     author,
     team,
     email

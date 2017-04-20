@@ -17,14 +17,14 @@ module.exports = async((req, res) => {
   if (session.session != dataSession.session) { return res.redirect('/login') }
 
   const count = await(model.Photo.count());
-  let images = await(model.Photo.find().skip((page - 1) * 10).limit(10).exec());
+  let images = await(model.Photo.find().skip((page - 1) * CONST.limits.records).limit(CONST.limits.records).exec());
 
   return res.render('admin/index', {
     template: 'home',
     title: "Admin panel",
     images,
     numberPage: page,
-    countPage: Math.ceil(count / 10),
+    countPage: Math.ceil(count / CONST.limits.records),
     identifications: CONST.identificationPhoto
   });
 });
