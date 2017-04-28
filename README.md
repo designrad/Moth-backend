@@ -21,9 +21,12 @@
         }
     });```
  
-4. _run project:_
-    `nodemon app.js` <=== debug
-    `npm i -g forever`, `forever -a --uid backend start app.js` <=== deploy
+4. _run project debug:_
+    `nodemon app.js`
+    
+5. _run project deploy:_
+    `npm i -g forever`
+    `forever -a --uid backend start app.js`
 
 5. install constants for views:
     file `/core/constants/index.js`
