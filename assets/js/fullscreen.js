@@ -79,7 +79,7 @@ function getImageByFilename(filename) {
 function renderDescription(filename, image) {
   $('#date-create-image').html(moment(image.date).format("DD.MM.YYYYY HH:mm:ss"));
   $('#name-image').html(`${image.author} ${image.email} ${image.team}`);
-  $('#coordinates').html(`${image.latitude} ${image.longitude}`);
+  $('#coordinates').html(`<a href="https://www.google.com/maps/@${image.latitude},${image.longitude},10z", target="_blank">${image.latitude} ${image.longitude}</a>`);
   $('#radius').html(image.accuracy + ' meters');
   $('#url').attr('href', '/image/' + image.name).html(/*location.hostname + */'/image/' + image.name);
   $('#comments-image').html(image.comments);
