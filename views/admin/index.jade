@@ -24,7 +24,7 @@ html
                         td
                             .picture-device-info
                                 a(href="/image/#{image.name}", target="_blank")
-                                    image.picture(src="/image/#{image.name}", style="width: 90px; height: 66px;")
+                                    image.picture(src="/image/#{image.name}", style="width: 90px; height: 66px; object-fit: contain;")
                                 .divice-info
                                     .date= moment(image.date).format("DD.MM.YYYYY HH:mm:ss")
                                     if image.email
