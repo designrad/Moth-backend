@@ -99,7 +99,7 @@ function getImageByFilename(filename) {
 
 //set description
 function renderDescription(filename, image) {
-    $('#date-create-image').html(moment(image.date).format("DD.MM.YYYYY HH:mm:ss"));
+    $('#date-create-image').html(moment(image.date).format("DD.MM.YYYY HH:mm:ss"));
     $('#name-image').html(`${image.author} ${image.email} ${image.team}`);
     $('#coordinates').html(`<a href="https://www.google.com/maps/@${image.latitude},${image.longitude},10z", target="_blank">${image.latitude} ${image.longitude}</a>`);
     $('#radius').html(image.accuracy + ' meters');
