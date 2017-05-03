@@ -8,6 +8,6 @@ module.exports = {
     geolocations: 'geolocations.json', //name geolocations json file
     images: 'images.zip' //name images archive
   }, limits: {
-      records: 5 //limit records for table page
+      records: 10 //limit records for table page
   }
 };

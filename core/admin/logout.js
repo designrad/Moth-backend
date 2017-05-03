@@ -11,7 +11,7 @@ module.exports = async((req, res) => {
     session = null;
 
   //get session admin
-  if (dataSession) { session = await(model.Session.findOne({admin: dataSession.userId}).exec()); }
+  if (dataSession) { session = await(model.Session.findOne({session: dataSession.session}).exec()); }
 
   //delete session
   if (session) { await(session.remove()); }

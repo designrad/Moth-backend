@@ -33,8 +33,6 @@ module.exports = async((req, res) => {
         if (error) { return res.redirect('/login') }
         if (!isMatch) { return res.redirect('/login') }
 
-        await(model.Session.remove({admin: admin._id}).exec());
-
         let session = new model.Session({
           admin: admin._id,
           session: utils.generateRandomString()
