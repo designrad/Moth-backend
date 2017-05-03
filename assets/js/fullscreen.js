@@ -19,20 +19,20 @@ $(document).ready(function () {
 });
 
 $(document).keypress(function (e) {
-    var key = e.keyCode || e.charCode;
+    let key = e.keyCode || e.charCode;
     if (key >= 48 && key <= 57) {
         switch (key) {
             case 49: {
-                changeIdentification('correct');
+                identificationChange('correct');
             } break;
             case 50: {
-                changeIdentification('uncertain');
+                identificationChange('uncertain');
             } break;
             case 51: {
-                changeIdentification('other');
+                identificationChange('other');
             } break;
             case 52: {
-                changeIdentification('delete');
+                identificationChange('delete');
             } break;
         }
     }
@@ -141,10 +141,10 @@ function getImage(filename) {
 
 //update image
 $('button.identification').on('click', (event) => {
-    changeIdentification(event.target.name);
+    identificationChange(event.target.name);
 });
 
-function changeIdentification(identification) {
+function identificationChange(identification) {
     if (frizeIdentification) return;
     let filename = getNameByActiveIndex();
 
@@ -154,10 +154,10 @@ function changeIdentification(identification) {
         filename
     }, function (req, status) {
         if (req.status != 'fail') {
+            frizeIdentification = false;
             let image = req.data.image;
             images[filename] = image;
             selectIdentification(filename, image);
-            frizeIdentification = false;
         } else if (req.data.msg == "Unauthorized") {
             frizeIdentification = false;
             window.location.href = "/login";

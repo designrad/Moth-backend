@@ -12,9 +12,7 @@ module.exports = async((req, res) => {
     //check session
     if (dataSession && dataSession.session && dataSession.userId) {
         let session = await(model.Session.findOne({session: dataSession.session}).exec());
-        if (!session) {
-            return res.redirect('/login');
-        } else if (session.admin != dataSession.userId) {
+        if (!session || session && session.admin != dataSession.userId) {
             return res.redirect('/login');
         }
 

@@ -16,8 +16,10 @@ module.exports = async((req, res) => {
   let dataSession = req.session.data;
 
   if (dataSession && dataSession.session && dataSession.userId) {
-    let session = await(model.Session.findOne({admin: dataSession.userId}).exec());
-    if (session.session != dataSession.session) { return API.fail(res, API.errors.UNAUTHORIZED) }
+      let session = await(model.Session.findOne({session: dataSession.session}).exec());
+      if (!session || session && session.admin != dataSession.userId) {
+          return API.fail(res, API.errors.UNAUTHORIZED);
+      }
   } else {
     return API.fail(res, API.errors.UNAUTHORIZED)
   }

@@ -24,17 +24,6 @@ module.exports = async((req, res) => {
     file = req.files.file;
   } else return API.fail(res, "No file photo")
 
-  console.log('file', file);
-  console.log('device', device);
-  console.log('accuracy', accuracy);
-  console.log('comments', comments);
-  console.log('latitude', latitude);
-  console.log('longitude', longitude);
-  console.log('author', author);
-  console.log('team', team);
-  console.log('email', email);
-  console.log('date', date);
-
   if (!file || !accuracy || !latitude || !longitude || !device) { return API.fail(res, "Not all data is filled out") }
   let path = file.path.split('/');
   let fileName = path[path.length - 1];
