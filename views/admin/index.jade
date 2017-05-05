@@ -34,7 +34,7 @@ html
                         td
                             .location-accuracy
                                 .coordinates
-                                    a(href="https://www.google.com/maps/@#{image.latitude},#{image.longitude},10z", target="_blank") #{image.latitude} #{image.longitude}
+                                    a(href="https://www.google.com/maps/@#{image.longitude},#{image.latitude},10z", target="_blank") #{image.longitude} #{image.latitude}
                                 .accuracy #{image.accuracy} meters
                         td.image-url
                             a(href="/image/#{image.name}", download) External-link
