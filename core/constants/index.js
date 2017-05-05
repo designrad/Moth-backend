@@ -5,7 +5,7 @@ module.exports = {
     OTHER: {name: 'other', color: '#3498DB'},
     DELETE: {name: 'delete', color: '#E74C3C'}
   }, filesName: {
-    geolocations: 'geolocations.json', //name geolocations json file
+    geolocations: 'geolocations.geojson', //name geolocations json file
     images: 'images.zip' //name images archive
   }, limits: {
       records: 10 //limit records for table page

@@ -44,13 +44,14 @@ module.exports = async((req, res) => {
                 "name": image.name,
                 "comments": image.comments,
                 "identification": image.identification,
-                "date": moment(image.date).format("DD.MM.YYYYY HH:mm:ss")
+                "date": moment(image.date).format("DD.MM.YYYY HH:mm:ss")
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    image.latitude,
-                    image.longitude
+                    parseFloat(image.longitude),
+                    parseFloat(image.latitude)
+
                 ]
             }
         });
