@@ -16,7 +16,7 @@ html
                     .swiper-container.gallery-top
                         .swiper-wrapper
                             each image in images
-                                .swiper-slide(id="#{image._id}", style='background-image:url(/image/#{image.name})', data-name="#{image.name}")
+                                a.swiper-slide(id="#{image._id}", style='background-image:url(/image/#{image.name})', data-name="#{image.name}", href="/image/#{image.name}", target="_blank")
                     .swiper-container.gallery-thumbs
                         .swiper-wrapper
                             each image in images
