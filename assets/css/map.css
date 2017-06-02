@@ -1,0 +1,39 @@
+#mapid {
+    height: 800px;
+}
+
+.marker-icon-approved {
+    background-color: red;
+}
+
+.marker-icon-pending {
+    background-color: green;
+}
+
+.leaflet-popup-content {
+    margin-top: 25px;
+    width: 329px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.subheader-1 {
+    color: black;
+    font-size: 17px;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.subheader-2 {
+    color: black;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.pending {
+    margin-top: -12px;
+}

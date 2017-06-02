@@ -12,6 +12,7 @@ module.exports = (srv, express) => {
     srv.get('/login', admin.login);
     srv.post('/login', admin.signIn);
     srv.get('/logout', admin.logout);
+    srv.get('/map', admin.map);
 
     //image
     srv.post('/image/upload', multipart({ uploadDir: path.PUBLIC.MOTH_PICTURES }), image.upload);
