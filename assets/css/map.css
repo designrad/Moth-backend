@@ -37,3 +37,13 @@
 .pending {
     margin-top: -12px;
 }
+
+.leaflet-div-icon {
+    width: 30px !important;
+    height: 30px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important; 
+    font-size: 16px !important;
+    border-radius: 15px !important;
+}

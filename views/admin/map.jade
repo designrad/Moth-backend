@@ -7,6 +7,7 @@ html
     body
         #mapid
     script(src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg==" crossorigin="") 
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.5/leaflet.markercluster-src.js")
     script(src="https://cdn.jsdelivr.net/momentjs/2.18.1/moment.min.js")
     script.
         document.getElementById('mapid').style.height = window.innerHeight + 'px';
@@ -17,6 +18,16 @@ html
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(mymap);
+            ///
+            var markers = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true,
+                iconCreateFunction: function(cluster) {
+                    return L.divIcon({ html: '<b>' + cluster.getChildCount() + '</b>' });
+                }
+            });
+            ///
             images.forEach(image => {
                 var myIcon = L.icon({
                     iconUrl: image.identification === 'correct' ? 'assets/img/marker-icon-green.png' : 'assets/img/marker-icon-gray.png',
@@ -29,7 +40,7 @@ html
                 });
                 //const className = image.identification === 'correct' ? 'marker-icon-approved' : 'marker-icon-pending';
                 //var myIcon = L.divIcon({className});
-                const marker = L.marker([image.latitude, image.longitude], {icon: myIcon }).addTo(mymap);
+                const marker = L.marker([image.latitude, image.longitude], {icon: myIcon });
                 //marker.bindPopup("You are there! Your ID is").openPopup();
                 if (image.identification === 'correct') {
                     marker.bindPopup(`<div>
@@ -43,8 +54,10 @@ html
                                     <div class="subheader-1">${moment(image.date).format('MMMM d, YYYY, hh:mm')}</div>
                                     <div class="subheader-2">${image.latitude}, ${image.longitude}</div>
                                   </div>`);
-                }              
+                }
+                markers.addLayer(marker);              
             });
+            mymap.addLayer(markers);
         }
         function positionSuccess(position) {
             lat = position.coords.latitude;

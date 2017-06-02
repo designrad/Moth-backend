@@ -10,14 +10,14 @@ let model = require('../db/model'),
 module.exports = async((req, res) => {
     let dataSession = req.session.data;
   //check session
-  if (dataSession && dataSession.session && dataSession.userId) {
-      let session = await(model.Session.findOne({session: dataSession.session}).exec());
-      if (!session || session && session.admin != dataSession.userId) {
-          return res.redirect('/login');
-      }
-  } else {
-    return res.redirect('/login');
-  }
+//   if (dataSession && dataSession.session && dataSession.userId) {
+//       let session = await(model.Session.findOne({session: dataSession.session}).exec());
+//       if (!session || session && session.admin != dataSession.userId) {
+//           return res.redirect('/login');
+//       }
+//   } else {
+//     return res.redirect('/login');
+//   }
 
   let images = await(model.Photo.find().sort({"date": -1}).exec());
 
