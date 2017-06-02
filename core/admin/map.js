@@ -20,7 +20,6 @@ module.exports = async((req, res) => {
   }
 
   let images = await(model.Photo.find().sort({"date": -1}).exec());
-  console.log(images);
 
   let object = {
         template: 'map',
