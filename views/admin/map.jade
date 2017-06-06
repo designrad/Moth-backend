@@ -45,13 +45,13 @@ html
                 if (image.identification === 'correct') {
                     marker.bindPopup(`<div>
                                     <image src="/image/${image.name}" style='width:100%; height:100%'>
-                                    <div class="subheader-1">${moment(image.date).format('MMMM d, YYYY, hh:mm')}</div>
+                                    <div class="subheader-1">${moment(image.date).format('DD.MM.YYYY HH:mm:ss')}</div>
                                     <div class="subheader-2">${image.latitude}, ${image.longitude}</div>
                                   </div>`);
                 } else {
                     marker.bindPopup(`<div>
                                     <div class="subheader-1 pending">Unverified. Waiting for identification.</div>
-                                    <div class="subheader-1">${moment(image.date).format('MMMM d, YYYY, hh:mm')}</div>
+                                    <div class="subheader-1">${moment(image.date).format('DD.MM.YYYY HH:mm:ss')}</div>
                                     <div class="subheader-2">${image.latitude}, ${image.longitude}</div>
                                   </div>`);
                 }

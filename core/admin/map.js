@@ -26,6 +26,8 @@ module.exports = async((req, res) => {
         title: "Map",
         images: JSON.stringify(images),
     };
+    
+    res.setHeader("X-Frame-Options", `ALLOW-FROM ${req.protocol}://${req.get('host')}${req.originalUrl}`);
 
     return res.render('admin/map', object);
 });
