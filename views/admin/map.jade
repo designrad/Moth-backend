@@ -28,7 +28,7 @@ html
                 }
             });
             ///
-            images.forEach(image => {
+            images.forEach(function (image) {
                 var myIcon = L.icon({
                     iconUrl: image.identification === 'correct' ? 'assets/img/marker-icon-green.png' : 'assets/img/marker-icon-gray.png',
                     iconSize: [25, 41],
@@ -37,7 +37,7 @@ html
                     //shadowUrl: '',
                     //shadowSize: [68, 95],
                     //shadowAnchor: [22, 94]
-                });
+            });
                 //const className = image.identification === 'correct' ? 'marker-icon-approved' : 'marker-icon-pending';
                 //var myIcon = L.divIcon({className});
                 const marker = L.marker([image.latitude, image.longitude], {icon: myIcon });
