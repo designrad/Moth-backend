@@ -15,7 +15,7 @@ html
         var lat, lng;
         function renderMap() {
             var mymap = L.map('mapid').setView([lat, lng], 13);
-            L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(mymap);
             ///
