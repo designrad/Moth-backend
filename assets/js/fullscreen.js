@@ -101,7 +101,7 @@ function getImageByFilename(filename) {
 function renderDescription(filename, image) {
     $('#date-create-image').html(moment(image.date).format("DD.MM.YYYY HH:mm:ss"));
     $('#name-image').html(`${image.author} ${image.email} ${image.team}`);
-    $('#coordinates').html(`<a href="http://maps.google.com/maps?q=${image.latitude},${image.longitude}" target="_blank">${image.latitude} ${image.longitude}</a>`);
+    $('#coordinates').html(`<a href="https://maps.google.com/maps?q=${image.latitude},${image.longitude}" target="_blank">${image.latitude} ${image.longitude}</a>`);
     $('#radius').html(image.accuracy + ' meters');
     $('#url').attr('href', '/image/' + image.name).html(/*location.hostname + */'/image/' + image.name);
     $('#comments-image').html(image.comments);
