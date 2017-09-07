@@ -11,7 +11,7 @@ html
                 .title-name
                     span(style="font-size: 30pt;") Målerjakt
                 .link-domain
-                    a(href="/", style="align-self: flex-end;") www.malerjakt.no
+                    a(href="https://www.malerjakt.no/", style="align-self: flex-end;") www.malerjakt.no
             .login-panel
                 form#login-form(action='/login', method='post', role='form', style='display: block;')
                     .group-input
@@ -24,7 +24,7 @@ html
                         input#password.control(type='password', name='password', tabindex='2', placeholder='Password')
                         if errors && errors.password
                             span.error #{errors.password}
-                    a.access-link(href="mailto:jane.jepsen@nina.no") No access? Contact project (mailto link)
+                    a.access-link(href="mailto:malerjakt@nina.no") No access? Contact malerjakt@nina.no
                     .group-input
                         .right
                             input#login-submit.form-control.btn.btn-login(type='submit', name='login-submit', tabindex='4', value='Login')
