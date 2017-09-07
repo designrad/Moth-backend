@@ -1,7 +1,7 @@
 **Start project**
 
 1. _Clone project:_ 
-    `https://github.com/designrad/Moth-backend.git`
+    `git clone https://github.com/designrad/Moth-backend.git`
  
 2. _Install requirement:_
     `mpm install` or `npm i`
@@ -60,3 +60,18 @@
     - Create ssh connection to the database and update login/pass/email manually. To create new hash for the password, go here and select "10" as "number of rounds": https://www.dailycred.com/article/bcrypt-calculator
     - Update string in database, and run
     `sudo service mongodb restart`
+
+**Updating**
+
+1. _Make changes to code locally or in github, then:_
+    `git commit -m 'WRITE HERE YOUR COMMIT MESSAGE'`
+    
+2. _Upload your changes to github:_
+    `git push -u origin master`
+
+3. _Re-install the changes locally, run this in Moth-backend/:_
+    `npm install`
+    
+4. _Restart the server and you are done!:_
+    `sudo reboot`
+    
