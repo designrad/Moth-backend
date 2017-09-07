@@ -131,8 +131,8 @@ let ServerBootstrap = () => {
       if(!r) {
         let admin = new model.Admin({
           username: "admin",
-          email: 'niklas@designrad.no',
-          password: 'moth.app.2017!'
+          email: 'admin@email.com',
+          password: 'admin123'
         });
         admin.save();
         console.info('[HC] New admin with credentials ${admin.username}, ${admin.email} created!');
