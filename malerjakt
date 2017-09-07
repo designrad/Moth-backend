@@ -1,0 +1,56 @@
+server{
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name malerjakt-admin.no www.malerjakt-admin.no;
+add_header X-UA-Compatible "IE=Edge,chrome=1";
+add_header X-Frame-Options "ALLOW-FROM http://www.malerjakt.no/";
+ssl_certificate /etc/letsencrypt/live/malerjakt-admin.no/fullchain.pem; # managed by Certbot
+ssl_certificate_key /etc/letsencrypt/live/malerjakt-admin.no/privkey.pem; # managed by Certbot
+ssl_dhparam /etc/ssl/certs/dhparam.pem;
+    gzip off;
+
+    location / {
+	add_header X-UA-Compatible "IE=Edge,chrome=1";
+	add_header X-Frame-Options "ALLOW-FROM http://www.malerjakt.no/";
+        proxy_read_timeout 120s;
+        proxy_pass http://127.0.0.1:3001;
+        proxy_set_header Host $host;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        if ($request_uri ~* ".(jpg|jpeg|gif|gz|zip|flv|rar|wmv|avi|css|swf|png|htc|ico|mpeg|mpg|txt|mp3|mov|js)(\?v=[0-9.]+)?$") {
+            expires 30d;
+            access_log off;
+            break;
+        }
+    }
+
+
+}
+
+server{
+    listen 80;
+    listen [::]:80;
+    server_name malerjakt-admin.no www.malerjakt-admin.no;
+add_header X-UA-Compatible "IE=Edge,chrome=1";
+add_header X-Frame-Options "ALLOW-FROM http://www.malerjakt.no/";
+    root /var/www/html;
+
+    location / {
+add_header X-UA-Compatible "IE=Edge,chrome=1";
+add_header X-Frame-Options "ALLOW-FROM http://www.malerjakt.no/";
+       return 301 https://$host$request_uri;
+    }
+
+    location /.well-known/acme-challenge/ {
+       try_files $uri $uri/ =404;
+    }
+
+    # Redirect non-https traffic to https
+    # if ($scheme != "https") {
+    #     return 301 https://$host$request_uri;
+    # } # managed by Certbot
+
+}

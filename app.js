@@ -87,7 +87,7 @@ let ServerBootstrap = () => {
     isLog && console.log('[HC] Configure routes...');
 
     srv.all('*', (req, res, next) => {
-      res.header("Access-Control-Allow-Origin", req.headers.origin);
+      res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "X-Requested-With");
       res.header("Access-Control-Allow-Credentials", "true");
       next();
@@ -131,8 +131,8 @@ let ServerBootstrap = () => {
       if(!r) {
         let admin = new model.Admin({
           username: "admin",
-          email: 'admin@email.com',
-          password: 'admin123'
+          email: 'niklas@designrad.no',
+          password: 'moth.app.2017!'
         });
         admin.save();
         console.info('[HC] New admin with credentials ${admin.username}, ${admin.email} created!');
