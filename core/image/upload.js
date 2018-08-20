@@ -33,8 +33,6 @@ module.exports = async((req, res) => {
 
   fs.rename(PATH.PUBLIC.MOTH_PICTURES + '/' + oldName, PATH.PUBLIC.MOTH_PICTURES + '/' + fileName, () => {});
 
-  console.log('UPLOADED?', fileName);
-
   let newPhoto = new model.Photo({
     name: fileName,
     device,
