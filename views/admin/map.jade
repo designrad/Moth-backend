@@ -30,6 +30,7 @@ html
                 spiderfyOnMaxZoom: true,
                 showCoverageOnHover: true,
                 zoomToBoundsOnClick: true,
+                animate: true,
                 iconCreateFunction: function(cluster) {
                     return L.divIcon({ html: '<b>' + cluster.getChildCount() + '</b>' });
                 }
@@ -43,7 +44,6 @@ html
 
                 if (!availableYears.hasOwnProperty(year)) {
                   availableYears[year] = L.layerGroup();
-                  // markers.addLayer(availableYears[year]);
                 }
 
                 var myIcon = L.icon({
