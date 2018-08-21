@@ -4,20 +4,46 @@ html
         title #{title}
         link(rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin="")
         link(rel="stylesheet", href="/assets/css/map.css")
-    body
+    body.mapFixed
+
         #mapid
+    div#mapfilters
+
     script(src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg==" crossorigin="")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.5/leaflet.markercluster-src.js")
     script(src="https://cdn.jsdelivr.net/momentjs/2.18.1/moment.min.js")
     script.
         document.getElementById('mapid').style.height = window.innerHeight + 'px';
         const images = JSON.parse('!{images}'.replace(/\n/ig, '\\\\n'));
-        var lat, lng;
+        var lat, lng, currentYear, mymap;
+
+        var availableYears = {};
+
         function renderMap() {
-            var mymap = L.map('mapid').setView([lat, lng], 13);
+            // var availableYears = {
+            //   '2017': L.markerClusterGroup({
+            //     spiderfyOnMaxZoom: true,
+            //     showCoverageOnHover: true,
+            //     zoomToBoundsOnClick: true,
+            //     iconCreateFunction: function (cluster) {
+            //       return L.divIcon({html: '<b>' + cluster.getChildCount() + '</b>'});
+            //     }
+            //   }).addTo(mymap)
+            // };
+
+            mymap = L.map('mapid').setView([lat, lng], 13);
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(mymap);
+
+              availableYears['2017'] = L.markerClusterGroup({
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: true,
+                zoomToBoundsOnClick: true,
+                iconCreateFunction: function (cluster) {
+                  return L.divIcon({html: '<b>' + cluster.getChildCount() + '</b>'});
+                }
+              }).addTo(mymap)
             ///
             var markers = L.markerClusterGroup({
                 spiderfyOnMaxZoom: true,
@@ -28,16 +54,32 @@ html
                 }
             });
             ///
+
             images.forEach(function (image) {
+                var year = (image.date && Date.parse(image.date) && new Date(image.date).getFullYear());
+
+                if (!availableYears.hasOwnProperty(year)) {
+                  availableYears[year] = L.markerClusterGroup({
+                    spiderfyOnMaxZoom: true,
+                    showCoverageOnHover: true,
+                    zoomToBoundsOnClick: true,
+                    iconCreateFunction: function (cluster) {
+                      return L.divIcon({html: '<b>' + cluster.getChildCount() + '</b>'});
+                    }
+                  }).addTo(mymap);
+                }
+
                 var myIcon = L.icon({
                     iconUrl: image.identification === 'correct' ? 'assets/img/marker-icon-green.png' : 'assets/img/marker-icon-gray.png',
                     iconSize: [25, 41],
-                    //iconAnchor: [22, 94],
-                    //popupAnchor: [-3, -76],
-                    //shadowUrl: '',
-                    //shadowSize: [68, 95],
-                    //shadowAnchor: [22, 94]
-            });
+                    // iconAnchor: [22, 94],
+                    // popupAnchor: [-3, -76],
+                    // shadowUrl: '',
+                    // shadowSize: [68, 95],
+                    // shadowAnchor: [22, 94]
+                });
+
+
                 //const className = image.identification === 'correct' ? 'marker-icon-approved' : 'marker-icon-pending';
                 //var myIcon = L.divIcon({className});
                 const marker = L.marker([image.latitude, image.longitude], {icon: myIcon });
@@ -47,10 +89,59 @@ html
                 } else {
                     marker.bindPopup("<div><div class='subheader-1 pending'>Unverified. Waiting for identification.</div><div class='subheader-1'>" + moment(image.date).format('DD.MM.YYYY HH:mm:ss') + "</div><div class='subheader-2'>" + image.latitude + ", " + image.longitude + "</div></div>");
                 }
-                markers.addLayer(marker);
+                // markers.addLayer(marker);
+                availableYears[year].addLayer(marker);
             });
+
+            // availableYears = availableYears.sort((a, b) => (b - a));
+            console.log('MP', mymap);
+            console.log('AY', availableYears);
+
+            Object.keys(availableYears)
+              .sort(function (a, b) { return (b - a); })
+              .map(function(year) {
+                  var yearChild = document.createElement('div');
+                  yearChild.className = 'filterButton';
+                  yearChild.innerHTML = year;
+                  yearChild.setAttribute("id", "filter-year-" + year);
+                  yearChild.addEventListener('click', function() {
+                    selectYear(year);
+                  });
+                  document.getElementById('mapfilters').appendChild(yearChild);
+                });
+
             mymap.addLayer(markers);
         }
+
+        function showOnlyYear(year) {
+          currentYear = year;
+          Object.keys(availableYears).forEach(function (destYear) {
+            if (year === destYear) {
+              document.getElementById("filter-year-" + destYear).className = 'filterButton active';
+              mymap.addLayer(availableYears[destYear]);
+            } else {
+              document.getElementById("filter-year-" + destYear).className = 'filterButton';
+              mymap.removeLayer(availableYears[destYear]);
+            }
+          });
+        }
+
+        function showAllYears() {
+          currentYear = null;
+          Object.keys(availableYears).forEach(function (destYear) {
+            document.getElementById("filter-year-" + destYear).className = 'filterButton';
+            mymap.addLayer(availableYears[destYear]);
+          });
+        }
+
+        function selectYear(year) {
+          if (year === currentYear) {
+            showAllYears();
+          } else {
+            showOnlyYear(year);
+          }
+        }
+
         function positionSuccess(position) {
             lat = position.coords.latitude;
             lng = position.coords.longitude;

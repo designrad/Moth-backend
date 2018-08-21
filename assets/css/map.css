@@ -1,3 +1,7 @@
+body.mapFixed {
+  margin: 0;
+}
+
 #mapid {
     height: 800px;
 }
@@ -43,7 +47,29 @@
     height: 30px !important;
     display: flex !important;
     justify-content: center !important;
-    align-items: center !important; 
+    align-items: center !important;
     font-size: 16px !important;
     border-radius: 15px !important;
+}
+
+#mapfilters {
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  z-index: 10000;
+}
+
+.filterButton {
+  border-radius: 3px;
+  padding: 10px 15px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  background-color: #C0BAB6;
+  cursor: pointer;
+  user-select: none;
+  font-family: sans-serif;
+}
+
+.filterButton.active {
+  background-color: #FFCE62;
 }
