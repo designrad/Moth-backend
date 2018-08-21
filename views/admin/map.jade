@@ -20,17 +20,6 @@ html
         var availableYears = {};
 
         function renderMap() {
-            // var availableYears = {
-            //   '2017': L.markerClusterGroup({
-            //     spiderfyOnMaxZoom: true,
-            //     showCoverageOnHover: true,
-            //     zoomToBoundsOnClick: true,
-            //     iconCreateFunction: function (cluster) {
-            //       return L.divIcon({html: '<b>' + cluster.getChildCount() + '</b>'});
-            //     }
-            //   }).addTo(mymap)
-            // };
-
             mymap = L.map('mapid').setView([lat, lng], 13);
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -98,28 +87,25 @@ html
 
             markers.addLayers(Object.values(availableYears));
             mymap.addLayer(markers);
-            console.log('MRKS', markers);
         }
 
         function showOnlyYear(year) {
+          if (currentYear) {
+            document.getElementById("filter-year-" + currentYear).className = 'filterButton';
+          }
           currentYear = year;
-          Object.keys(availableYears).forEach(function (destYear) {
-            if (year === destYear) {
-              document.getElementById("filter-year-" + destYear).className = 'filterButton active';
-              markers.addLayer(availableYears[destYear]);
-            } else {
-              document.getElementById("filter-year-" + destYear).className = 'filterButton';
-              markers.removeLayer(availableYears[destYear]);
-            }
-          });
+          document.getElementById("filter-year-" + currentYear).className = 'filterButton active';
+
+          markers.clearLayers();
+          markers.addLayer(availableYears[year]);
         }
 
         function showAllYears() {
+          document.getElementById("filter-year-" + currentYear).className = 'filterButton';
           currentYear = null;
-          Object.keys(availableYears).forEach(function (destYear) {
-            document.getElementById("filter-year-" + destYear).className = 'filterButton';
-            markers.addLayer(availableYears[destYear]);
-          });
+
+          markers.clearLayers();
+          markers.addLayers(Object.values(availableYears));
         }
 
         function selectYear(year) {
