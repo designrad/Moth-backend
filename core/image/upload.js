@@ -20,6 +20,7 @@ module.exports = async((req, res) => {
     author = req.body.author ? req.body.author : '',
     team = req.body.team ? req.body.team : '',
     email = req.body.email ? req.body.email : '',
+    review = '',
     date = req.body.date;
 
   if (req.files) {
@@ -40,6 +41,7 @@ module.exports = async((req, res) => {
     comments,
     latitude,
     longitude,
+    review,
     identification: CONST.identificationPhoto.UNCERTAIN.name,
     date: date ? new Date(date) : new Date(),
     author,
