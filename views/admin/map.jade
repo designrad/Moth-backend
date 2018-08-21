@@ -80,9 +80,7 @@ html
                   yearChild.className = 'filterButton';
                   yearChild.innerHTML = year;
                   yearChild.setAttribute("id", "filter-year-" + year);
-                  yearChild.addEventListener('click', function() {
-                    selectYear(year);
-                  });
+                  yearChild.addEventListener('click', function() { selectYear(year); });
                   document.getElementById('mapfilters').appendChild(yearChild);
                 });
 
