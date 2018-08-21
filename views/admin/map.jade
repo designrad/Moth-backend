@@ -74,6 +74,7 @@ html
 
             Object.keys(availableYears)
               .sort(function (a, b) { return (b - a); })
+              .slice(0, 3)
               .map(function(year) {
                   var yearChild = document.createElement('div');
                   yearChild.className = 'filterButton';
