@@ -1,4 +1,6 @@
 'use strict';
+const PATH = require('../path');
+const fs = require('fs');
 
 let async = require('asyncawait/async'),
   await = require('asyncawait/await'),
@@ -18,15 +20,19 @@ module.exports = async((req, res) => {
     author = req.body.author ? req.body.author : '',
     team = req.body.team ? req.body.team : '',
     email = req.body.email ? req.body.email : '',
+    review = '',
     date = req.body.date;
 
   if (req.files) {
     file = req.files.file;
-  } else return API.fail(res, "No file photo")
+  } else return API.fail(res, "No file photo");
 
   if (!file || !accuracy || !latitude || !longitude || !device) { return API.fail(res, "Not all data is filled out") }
   let path = file.path.split('/');
-  let fileName = path[path.length - 1];
+  let oldName = path[path.length - 1];
+  let fileName = moment(date).format('YYYYMMDD') + '_' + parseFloat(longitude).toFixed(5) + '_' + parseFloat(latitude).toFixed(5) + '_' + path[path.length - 1];
+
+  fs.rename(PATH.PUBLIC.MOTH_PICTURES + '/' + oldName, PATH.PUBLIC.MOTH_PICTURES + '/' + fileName, () => {});
 
   let newPhoto = new model.Photo({
     name: fileName,
@@ -35,6 +41,7 @@ module.exports = async((req, res) => {
     comments,
     latitude,
     longitude,
+    review,
     identification: CONST.identificationPhoto.UNCERTAIN.name,
     date: date ? new Date(date) : new Date(),
     author,

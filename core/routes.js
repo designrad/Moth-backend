@@ -28,6 +28,7 @@ module.exports = (srv, express) => {
 
     //api
     srv.post('/image/update', api.photoUpdate);
+    srv.post('/image/review', api.review);
     srv.post('/image/archive', api.archive);
     srv.post('/image', api.image);
     srv.post('/photos', api.photos);

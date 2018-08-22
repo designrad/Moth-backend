@@ -7,6 +7,7 @@ let PhotoSchema = mongoose.Schema({
   device: { type: String },
   accuracy: { type: Number },
   comments: { type: String },
+  review: { type: String },
   latitude: { type: String },
   longitude: { type: String },
   identification: { type: String },

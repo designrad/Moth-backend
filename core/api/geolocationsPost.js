@@ -28,7 +28,7 @@ module.exports = async((req, res) => {
         fileName = CONST.filesName.geolocations;
 
     if (fs.existsSync(path.PUBLIC.GEOLOCATIONS + `/${fileName}`)) {
-        await(fs.unlink(path.PUBLIC.GEOLOCATIONS + `/${fileName}`));
+        await(fs.unlink(path.PUBLIC.GEOLOCATIONS + `/${fileName}`, () => {}));
     }
 
     let features = [];
@@ -44,7 +44,9 @@ module.exports = async((req, res) => {
                 "name": image.name,
                 "comments": image.comments,
                 "identification": image.identification,
-                "date": moment(image.date).format("DD.MM.YYYY HH:mm:ss")
+                "date": moment(image.date).format("DD.MM.YYYY HH:mm:ss"),
+                ...(image.author && { sender: image.author }),
+                ...(image.email && { email: image.email }),
             },
             "geometry": {
                 "type": "Point",
