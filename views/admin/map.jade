@@ -36,9 +36,6 @@ html
                 }
             });
 
-          // availableYears['2017'] = L..addTo(markers)
-            ///
-
             images.forEach(function (image) {
                 var year = (image.date && Date.parse(image.date) && new Date(image.date).getFullYear());
 
@@ -120,10 +117,12 @@ html
             lng = position.coords.longitude;
             renderMap();
         }
+
         function positionError(error) {
             console.log(error);
             lat = images[0].latitude;
             lng = images[0].longitude;
             renderMap();
         }
+
         navigator.geolocation.getCurrentPosition(positionSuccess, positionError, { enableHighAccuracy: true });
