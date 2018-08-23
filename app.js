@@ -128,8 +128,8 @@ let ServerBootstrap = () => {
         console.log("remove session error: ", err);
     });
 
-    model.Session.save({});
-    // this.solves issue!!!
+    // model.Session.save({});
+    // this.solves issue?
     // model.Session.save({}, (err) => {
     //   console.log("add session? ", err);
     // });

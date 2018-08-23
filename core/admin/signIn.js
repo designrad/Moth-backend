@@ -49,6 +49,8 @@ module.exports = async((req, res) => {
             email: admin.email,
             userId: admin._id
         });
+
+        await(session.save());
         return res.redirect('/')
     }));
 });
