@@ -8,17 +8,16 @@ let model = require('../db/model'),
 
 module.exports = async((req, res) => {
   let dataSession = req.session.data;
-  return API.success(res, {
-    request: req.session,
-  });
 
   //check session
   if (dataSession && dataSession.session && dataSession.userId) {
     let session = await(model.Session.findOne({session: dataSession.session}).exec());
-    if (!session || session && session.admin != dataSession.userId) {
+    if (!session || (session && session.admin != dataSession.userId)) {
+      console.log('review unauth 1', dataSession.userId);
       return API.fail(res, API.errors.UNAUTHORIZED);
     }
   } else {
+    console.log('review unauth 2', dataSession.userId);
     return API.fail(res, API.errors.UNAUTHORIZED)
   }
 
