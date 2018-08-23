@@ -38,8 +38,14 @@ module.exports = async((req, res) => {
           session: utils.generateRandomString()
         });
 
+        console.log('saved session?');
+
         //save session admin
         session = await(session.save());
+
+        let allSessions = await(model.Session.findOne({}).exec());
+        console.log('SESSSS', allSessions);
+
         req.session.data = utils.changeSessionData(req.session, {
             session: session.session,
             username: admin.username,
