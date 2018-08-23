@@ -31,6 +31,8 @@ module.exports = async((req, res) => {
     await (photo.save());
   }
 
+  await(req.session.save());
+
   return API.success(res, {
     image: photo,
     review: data,
