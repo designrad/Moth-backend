@@ -128,6 +128,11 @@ let ServerBootstrap = () => {
         console.log("remove session error: ", err);
     });
 
+
+    model.Session.save({}, (err) => {
+      console.log("add session? ", err);
+    });
+
     model.Admin.findOne().then(r => {
       if(!r) {
         let admin = new model.Admin({
