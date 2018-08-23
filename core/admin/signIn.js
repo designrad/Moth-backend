@@ -43,7 +43,7 @@ module.exports = async((req, res) => {
         session = await(session.save());
         console.log('saved session? x2', session);
 
-        let allSessions = await(model.Session.findOne({}).exec());
+        let allSessions = await(model.Session.find({}).exec());
         console.log('SESSSS', allSessions);
 
         req.session.data = utils.changeSessionData(req.session, {
