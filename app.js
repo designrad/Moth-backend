@@ -79,7 +79,8 @@ let ServerBootstrap = () => {
     srv.use(session({
       secret: 'secretept',
       resave: true,
-      saveUninitialized: true
+      saveUninitialized: true,
+      secure: false,
     }));
     srv.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
     // srv.use(fileUpload());
