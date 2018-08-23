@@ -66,8 +66,10 @@
 1. _Make changes to code locally or in github, then:_
     `git commit -m 'WRITE HERE YOUR COMMIT MESSAGE'`
     
-2. _Upload your changes to github:_
+2. _Upload your changes to github if you made local changes:_
     `git push -u origin master`
+2. _Or, download the changes from github:_
+    `git pull`
 
 3. _Re-install the changes locally, run this in Moth-backend/:_
     `npm install`
