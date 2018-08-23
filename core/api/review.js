@@ -8,6 +8,9 @@ let model = require('../db/model'),
 
 module.exports = async((req, res) => {
   let dataSession = req.session.data;
+  return API.success(res, {
+    request: req.session,
+  });
 
   //check session
   if (dataSession && dataSession.session && dataSession.userId) {
