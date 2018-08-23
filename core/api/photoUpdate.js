@@ -12,7 +12,7 @@ module.exports = async((req, res) => {
   //check session
   if (dataSession && dataSession.session && dataSession.userId) {
       let session = await(model.Session.findOne({session: dataSession.session}).exec());
-      console.log('SESS :-(', session.admin, dataSession.userId);
+      console.log('SESS :-(', dataSession.userId);
 
       if (!session || session && session.admin != dataSession.userId) {
           return API.fail(res, API.errors.UNAUTHORIZED);
