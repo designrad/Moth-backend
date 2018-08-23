@@ -16,7 +16,6 @@ module.exports = async((req, res) => {
       return API.fail(res, API.errors.UNAUTHORIZED);
     }
   } else {
-    console.log('review unauth 2', dataSession.userId);
     return API.fail(res, API.errors.UNAUTHORIZED)
   }
 

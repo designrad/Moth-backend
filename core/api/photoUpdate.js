@@ -10,7 +10,7 @@ module.exports = async((req, res) => {
   let dataSession = req.session.data;
 
   let allSessions = await(model.Session.find({}).exec());
-  console.log('SESSSS (photoUpdate)', allSessions);
+
   //check session
   if (dataSession && dataSession.session && dataSession.userId) {
       let session = await(model.Session.findOne({session: dataSession.session}).exec());
