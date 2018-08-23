@@ -124,9 +124,9 @@ let ServerBootstrap = () => {
       setTimeout(ServerBootstrap, 5000);
     });
 
-    // model.Session.remove({}, (err) => {
-    //     console.log("remove session error: ", err);
-    // });
+    model.Session.remove({}, (err) => {
+        console.log("remove session error: ", err);
+    });
 
     model.Admin.findOne().then(r => {
       if(!r) {

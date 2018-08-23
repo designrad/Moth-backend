@@ -9,8 +9,6 @@ let model = require('../db/model'),
 module.exports = async((req, res) => {
     let dataSession = req.session.data;
     //check session
-    let allSessions = await(model.Session.findOne({}).exec());
-    console.log('SESSSS', allSessions);
 
     if (dataSession && dataSession.session && dataSession.userId) {
         let session = await(model.Session.findOne({session: dataSession.session}).exec());
