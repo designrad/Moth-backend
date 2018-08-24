@@ -50,7 +50,7 @@ module.exports = async((req, res) => {
             userId: admin._id
         });
 
-        await(session.save());
+        // await(session.save());
         return res.redirect('/')
     }));
 });

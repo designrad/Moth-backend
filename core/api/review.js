@@ -26,11 +26,11 @@ module.exports = async((req, res) => {
   //update photo
   let photo = await(model.Photo.findOne({name: filename}).exec());
   if (photo) {
-    if (data.review) photo.review = data.review;
+    if (data.review || data.review === '') photo.review = data.review;
     await (photo.save());
   }
 
-  await(req.session.save());
+  // await(req.session.save());
 
   return API.success(res, {
     image: photo,
