@@ -74,7 +74,7 @@ html
               .slice(0, 3)
               .map(function(year) {
                   var yearChild = document.createElement('div');
-                  yearChild.className = 'filterButton';
+                  yearChild.className = 'filterButton active';
                   yearChild.innerHTML = year;
                   yearChild.setAttribute("id", "filter-year-" + year);
                   yearChild.addEventListener('click', function() { selectYear(year); });
@@ -86,18 +86,24 @@ html
         }
 
         function showOnlyYear(year) {
-          if (currentYear) {
-            document.getElementById("filter-year-" + currentYear).className = 'filterButton';
-          }
           currentYear = year;
-          document.getElementById("filter-year-" + currentYear).className = 'filterButton active';
+
+          Object.keys(availableYears).map(function (el) {
+            const btn = document.getElementById("filter-year-" + el);
+            if (!btn) return;
+            btn.className = (el == year) ? 'filterButton active' : 'filterButton';
+          });
 
           markers.clearLayers();
           markers.addLayer(availableYears[year]);
         }
 
         function showAllYears() {
-          document.getElementById("filter-year-" + currentYear).className = 'filterButton';
+          Object.keys(availableYears).map(function (el) {
+            const btn = document.getElementById("filter-year-" + el);
+            if (!btn) return;
+            btn.className = 'filterButton active'
+          });
           currentYear = null;
 
           markers.clearLayers();

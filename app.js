@@ -69,8 +69,8 @@ let ServerBootstrap = () => {
   }, () => {
 
     isLog && console.log('[HC] Database connection ready.');
-    srv.set('views', __dirname + '/views')
-    srv.set('view engine', 'jade')
+    srv.set('views', __dirname + '/views');
+    srv.set('view engine', 'jade');
 
     srv.use(bodyParser.json({limit: '50mb'}));
     // app.use(express.cookieDecoder());
