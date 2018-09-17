@@ -18,6 +18,8 @@ module.exports = async((req, res) => {
     let session = await(model.Session.findOne({session: dataSession.session}).exec());
     if (!session || session && session.admin != dataSession.userId) {
         return res.redirect('/login');
+    } else {
+      await(session.save());
     }
 
     const count = await(model.Photo.count());

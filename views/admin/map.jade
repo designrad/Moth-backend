@@ -14,10 +14,11 @@ html
     script(src="https://cdn.jsdelivr.net/momentjs/2.18.1/moment.min.js")
     script.
         document.getElementById('mapid').style.height = window.innerHeight + 'px';
-        const images = JSON.parse('!{images}'.replace(/\n/ig, '\n'));
+        const images = JSON.parse('!{images}'.replace(/\n/ig, ''));
         var lat, lng, currentYear, mymap, markers;
 
         var availableYears = {};
+        var selectedYears = [];
 
         function renderMap() {
             mymap = L.map('mapid').setView([lat, lng], 13);
@@ -67,49 +68,48 @@ html
                 availableYears[year].addLayer(marker);
             });
 
-            // availableYears = availableYears.sort((a, b) => (b - a));
+            selectedYears = Object.keys(availableYears).sort(function (a, b) { return (b - a); }).slice(0, 3);
 
             Object.keys(availableYears)
               .sort(function (a, b) { return (b - a); })
               .slice(0, 3)
               .map(function(year) {
                   var yearChild = document.createElement('div');
-                  yearChild.className = 'filterButton';
+                  yearChild.className = 'filterButton active';
                   yearChild.innerHTML = year;
                   yearChild.setAttribute("id", "filter-year-" + year);
                   yearChild.addEventListener('click', function() { selectYear(year); });
                   document.getElementById('mapfilters').appendChild(yearChild);
+
+                markers.addLayer(availableYears[year]);
                 });
 
-            markers.addLayers(Object.values(availableYears));
+            // markers.addLayers(Object.values(availableYears));
             mymap.addLayer(markers);
         }
 
-        function showOnlyYear(year) {
-          if (currentYear) {
-            document.getElementById("filter-year-" + currentYear).className = 'filterButton';
-          }
-          currentYear = year;
-          document.getElementById("filter-year-" + currentYear).className = 'filterButton active';
-
-          markers.clearLayers();
-          markers.addLayer(availableYears[year]);
-        }
-
-        function showAllYears() {
-          document.getElementById("filter-year-" + currentYear).className = 'filterButton';
-          currentYear = null;
-
-          markers.clearLayers();
-          markers.addLayers(Object.values(availableYears));
-        }
-
         function selectYear(year) {
-          if (year === currentYear) {
-            showAllYears();
+          if (Object.keys(availableYears).indexOf(year) < 0) return;
+
+          var pos = selectedYears.indexOf(year);
+          if (pos < 0) {
+            selectedYears.push(year);
           } else {
-            showOnlyYear(year);
+            selectedYears.splice(pos, 1);
           }
+
+          Object.keys(availableYears).map(function(el) {
+            const btn = document.getElementById("filter-year-" + el);
+            if (!btn) return;
+
+            if (selectedYears.indexOf(el) < 0) {
+              btn.className = 'filterButton';
+              markers.removeLayer(availableYears[el]);
+            } else {
+              btn.className = 'filterButton active';
+              markers.addLayer(availableYears[el]);
+            }
+          });
         }
 
         function positionSuccess(position) {

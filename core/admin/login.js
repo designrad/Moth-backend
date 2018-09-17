@@ -8,16 +8,15 @@ let model = require('../db/model'),
 
 module.exports = async((req, res) => {
     let dataSession = req.session.data;
-
     //check session
+
     if (dataSession && dataSession.session && dataSession.userId) {
         let session = await(model.Session.findOne({session: dataSession.session}).exec());
-        if (!session || session && session.admin != dataSession.userId) {
-            return res.redirect('/login');
-        }
 
-        //If the user is authorized
-        return res.redirect('/');
+        // If the user is authorized
+        if (session && session.admin == dataSession.userId) {
+          return res.redirect('/');
+        }
     }
 
     res.render('auth/login', {title: "Login"});

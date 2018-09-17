@@ -12,6 +12,7 @@ module.exports = async((req, res) => {
   //check session
   if (dataSession && dataSession.session && dataSession.userId) {
       let session = await(model.Session.findOne({session: dataSession.session}).exec());
+
       if (!session || session && session.admin != dataSession.userId) {
           return API.fail(res, API.errors.UNAUTHORIZED);
       }
@@ -29,6 +30,8 @@ module.exports = async((req, res) => {
     if (data.identification) photo.identification = data.identification;
     await (photo.save());
   }
+
+  // await(req.session.save());
 
   return API.success(res, {
     image: photo

@@ -12,7 +12,7 @@ module.exports = async((req, res) => {
   //check session
   if (dataSession && dataSession.session && dataSession.userId) {
     let session = await(model.Session.findOne({session: dataSession.session}).exec());
-    if (!session || session && session.admin != dataSession.userId) {
+    if (!session || (session && session.admin != dataSession.userId)) {
       return API.fail(res, API.errors.UNAUTHORIZED);
     }
   } else {
@@ -26,9 +26,11 @@ module.exports = async((req, res) => {
   //update photo
   let photo = await(model.Photo.findOne({name: filename}).exec());
   if (photo) {
-    if (data.review) photo.review = data.review;
+    if (data.review || data.review === '') photo.review = data.review;
     await (photo.save());
   }
+
+  // await(req.session.save());
 
   return API.success(res, {
     image: photo,

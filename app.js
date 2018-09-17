@@ -69,8 +69,8 @@ let ServerBootstrap = () => {
   }, () => {
 
     isLog && console.log('[HC] Database connection ready.');
-    srv.set('views', __dirname + '/views')
-    srv.set('view engine', 'jade')
+    srv.set('views', __dirname + '/views');
+    srv.set('view engine', 'jade');
 
     srv.use(bodyParser.json({limit: '50mb'}));
     // app.use(express.cookieDecoder());
@@ -79,7 +79,8 @@ let ServerBootstrap = () => {
     srv.use(session({
       secret: 'secretept',
       resave: true,
-      saveUninitialized: true
+      saveUninitialized: true,
+      secure: false,
     }));
     srv.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
     // srv.use(fileUpload());
@@ -127,6 +128,13 @@ let ServerBootstrap = () => {
     model.Session.remove({}, (err) => {
         console.log("remove session error: ", err);
     });
+
+    // model.Session.save({});
+    // this.solves issue?
+    // model.Session.save({}, (err) => {
+    //   console.log("add session? ", err);
+    // });
+
     model.Admin.findOne().then(r => {
       if(!r) {
         let admin = new model.Admin({

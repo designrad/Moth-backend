@@ -9,9 +9,7 @@ var postTimer;
 
 function postReview(filename, review) {
   $.post(`/image/review`, { filename, review }, function(req, status){
-    if (req.status != 'fail') {
-      console.log('review ok', req, status);
-    } else if (req.data.msg == "Unauthorized") {
+    if (req && req.data && req.data.msg == "Unauthorized") {
       window.location.href = "/login";
     }
   });
@@ -19,7 +17,6 @@ function postReview(filename, review) {
 
 function delayedPost(name, text) {
   if (postTimer) clearTimeout(postTimer);
-  console.log('set');
   postTimer = setTimeout(function() { postReview(name, text) }, 1000);
 }
 

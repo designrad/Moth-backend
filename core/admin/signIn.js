@@ -40,12 +40,17 @@ module.exports = async((req, res) => {
 
         //save session admin
         session = await(session.save());
+
+        let allSessions = await(model.Session.find({}).exec());
+
         req.session.data = utils.changeSessionData(req.session, {
             session: session.session,
             username: admin.username,
             email: admin.email,
             userId: admin._id
         });
+
+        // await(session.save());
         return res.redirect('/')
     }));
 });
